@@ -31,13 +31,13 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
     int x =(int)(Math.random()*6);
     if(x==0)
       return (new RedCandy());
-    if(x==1)
+    else if(x==1)
       return (new OrangeCandy());
-    if(x==2)
+    else if(x==2)
       return (new YellowCandy());
-    if(x==3)
+    else if(x==3)
       return (new GreenCandy());
-    if(x==4)
+    else if(x==4)
       return (new BlueCandy());
     else
       return (new PurpleCandy());
