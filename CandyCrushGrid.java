@@ -1,4 +1,4 @@
-public class CandyCrushGrid extends Grid
+public class CandyCrushWorld extends ActorWorld
 {
 
 }
