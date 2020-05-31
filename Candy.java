@@ -1,4 +1,4 @@
-public class Candy
+public class Candy extends Actor
 {
-  
+
 }
