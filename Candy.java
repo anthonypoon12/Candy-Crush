@@ -6,20 +6,26 @@ public class Candy extends Critter
   {
     ArrayList<Location> combolist = new ArrayList<Location>();
     combolist=detecthor(combolist, getLocation(),false);
-    if (combolist.size()>=0)
+    if (combolist.size()>0)
     {
-      for (Location l: combolisthor)
+      if (combolist.size()<5)
       {
-        combolist = detectorvert(combolist,l,true);
+        for (Location l: combolisthor)
+        {
+          combolist = detectorvert(combolist,l,true);
+        }
       }
       return combolist;
     }
     combolist=detectvert(combolist, getLocation(),false);
-    if (combolist.size()>=0)
+    if (combolist.size()>0)
     {
-      for (Location l: combolistvert)
+      if (combolist.size()<5)
       {
-        combolist = detectorhor(combolist,l,true);
+        for (Location l: combolistvert)
+        {
+          combolist = detectorhor(combolist,l,true);
+        }
       }
     }
     return combolist;
