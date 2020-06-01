@@ -1,8 +1,8 @@
 public class Candy extends Critter
 {
-  //returns an arraylist of all locations of candies in a possible combination
   private int candynumber = 0;//refers to the type of candy
   public ArrayList<Location> detect()
+  //returns an arraylist of all locations of candies in a possible combination
   {
     ArrayList<Location> combolist = new ArrayList<Location>();
     combolist=detecthor(combolist, getLocation(),false);
@@ -24,19 +24,23 @@ public class Candy extends Critter
     }
     return combolist;
   }
-  public void act()//needs to be changed
+  public void act()
+  //needs to be changed
   {
 
   }
-  public void switch(Candy candy)//switches this candy with one next to it
+  public void switch(Candy candy)
+  //switches this candy with one next to it
   {
 
   }
-  public int getType()//gets the candy number
+  public int getType()
+  //gets the candy number
   {
     return candynumber;
   }
-  public ArrayList<Location> detecthor(ArrayList<Location> list, Location x, boolean secondary) //checks horizontally. if total matches are less than 3, it returns original list. else, it adds to it.
+  public ArrayList<Location> detecthor(ArrayList<Location> list, Location x, boolean secondary)
+  //checks horizontally for 3 or more in a row. if total matches are less than 3, it returns original list. else, it returns the list PLUS all new candies horizontally. If this method is used as a secondary method and the total matches are 3 or more, the original location will not be added to the output.
   {
     Location loc = x;
     ArrayList<Location> dummyhor = list;
@@ -50,6 +54,7 @@ public class Candy extends Critter
       return list;
   }
   public ArrayList<Location> detectright(ArrayList<Location> list, Location x)
+  //adds all locations to the right that match in a row to the list and returns the list. (up to four additions)
   {
     ArrayList<Location> dummyrightleft = list;
     Grid<Actor> gr = getGrid();
@@ -74,7 +79,7 @@ public class Candy extends Critter
     }
     return dummyright;
   }
-  public ArrayList<Location> detectleft(ArrayList<Location> list, Location x)
+  public ArrayList<Location> detectleft(ArrayList<Location> list, Location x)//adds all locations to the left that match in a row to the list and returns the list. (up to four additions)
   {
     ArrayList<Location> dummyleft = list;
     Grid<Actor> gr = getGrid();
@@ -100,6 +105,7 @@ public class Candy extends Critter
     return dummyleft;
   }
   public ArrayList<Location> detectvert(ArrayList<Location> list, Location x, boolean secondary)
+  //checks vertically for 3 or more in a row. if total matches are less than 3, it returns original list. else, it returns the list PLUS all new candies vertically. If this method is used as a secondary method and the total matches are 3 or more, the original location will not be added to the output.
   {
     Location loc = x;
     ArrayList<Location> dummyvert = list;
@@ -112,7 +118,7 @@ public class Candy extends Critter
     else
       return list;
   }
-  public ArrayList<Location> detectup(ArrayList<Location> list, Location x)
+  public ArrayList<Location> detectup(ArrayList<Location> list, Location x)//adds all locations above that match in a row to the list and returns the list. (up to four additions)
   {
     ArrayList<Location> dummyup = list;
     Grid<Actor> gr = getGrid();
@@ -137,7 +143,7 @@ public class Candy extends Critter
     }
     return dummyup;
   }
-  public ArrayList<Location> detectdown(ArrayList<Location> list, Location x)
+  public ArrayList<Location> detectdown(ArrayList<Location> list, Location x)//adds all locations below that match in a row to the list and returns the list. (up to four additions)
   {
     ArrayList<Location> down = list;
     Grid<Actor> gr = getGrid();
