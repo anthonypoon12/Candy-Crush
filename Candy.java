@@ -1,6 +1,6 @@
 public class Candy extends Critter
 {
-  private int candynumber = 0;//refers to the type of candy
+  protected int candynumber = 0;//refers to the type of candy
   public ArrayList<Location> detect()
   //returns an arraylist of all locations of candies in a possible combination
   {

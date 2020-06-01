@@ -1,4 +1,7 @@
 public class BlueCandy extends Candy
 {
-  private final int candynumber = 1;
+  public BlueCandy()
+  {
+    candynumber = 1;
+  }
 }
