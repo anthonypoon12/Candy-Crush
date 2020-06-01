@@ -50,7 +50,7 @@ public class Candy extends Critter
   {
     Location loc = x;
     ArrayList<Location> dummyhor = list;
-    if (secondary)
+    if (!secondary)
       dummyhor.add(loc);
     dummyhor = detectright(dummyhor, loc);
     dummyhor=detectleft(dummyhor, loc);
@@ -115,7 +115,7 @@ public class Candy extends Critter
   {
     Location loc = x;
     ArrayList<Location> dummyvert = list;
-    if (secondary)
+    if (!secondary)
       dummyvert.add(loc);
     dummyvert = detectup(dummyvert, loc);
     dummyvert=detectdown(dummyvert, loc);
