@@ -42,4 +42,22 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
     else
       return (new PurpleCandy());
   }
+  public void Gravity(){ //invoking once will make all actors with an empty space below drop one space down
+    Grid<Actor> g = getGrid();
+    Actor obj;
+    ArrayList<Actor> sorted = new ArrayList<Actor>();
+    for(int i = g.getNumRows()-1; i >0; i--){
+      for(int j = 0; j < g.getNumCols(); j++){
+        obj = g.get(new Location(i, j));
+        if(obj != null)
+          sorted.add(obj);
+      }
+    }
+    for (int k = 0; k < sorted.size(); k++){
+      Actor a = sorted.get(k);
+      Location loc = a.getLocation();
+	    Location next = new Location(loc.getRow()+1, loc.getCol());
+	    if(g.isValid(next) && g.get(next) == null)
+        a.moveTo(next);
+    }
 }
