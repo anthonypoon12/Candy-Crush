@@ -58,9 +58,9 @@ public class Candy extends Critter
     savedlocs.add(getLocation());
     savedlocs.add(candy.getLocation());
     candy.removeSelfFromGrid();
-    candy.putSelfInGrid(gr,savedlocs.get(1));
     removeSelfFromGrid();
-    putSelfInGrid(gr,savedlocs.get(0));
+    candy.putSelfInGrid(gr,savedlocs.get(0));
+    putSelfInGrid(gr,savedlocs.get(1));
     /*Grid<Actor> gr = getGrid();
     ArrayList<Candy> saved = new ArrayList<Candy>();
     ArrayList<Location> savedlocs = new ArrayList<Location>();
