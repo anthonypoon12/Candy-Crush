@@ -35,10 +35,43 @@ public class Candy extends Critter
   {
 
   }
+  public void fullswitch(Candy candy1)
+  //switches candy with one next to it, detects if either has combo. If either combolists are larger than 3 elements, candies from that list are destroyed and other candy stays in place. Otherwise, they switch back.
+  {
+    switch(candy1);
+    ArrayList<Location> combolist;
+    ArrayList<Location> combolist2;
+    combolist = detect();
+    combolist2 = candy1.detect();
+    if (combolist.size()>=3)
+      destroy(combolist);
+    if (combolist2.size()>=3)
+      destroy(combolist2);
+    if ((combolist.size()>=3)&&(combolist2.size()>=3))
+      switch(candy1);
+  }
   public void switch(Candy candy)
   //switches this candy with one next to it
-  {
-
+  {//might not work
+    Grid<Actor> gr = getGrid();
+    ArrayList<Location> savedlocs = new ArrayList<Location>();
+    savedlocs.add(getLocation());
+    savedlocs.add(candy.getLocation());
+    candy.removeSelfFromGrid();
+    candy.putSelfInGrid(gr,savedlocs.get(1));
+    removeSelfFromGrid();
+    putSelfInGrid(gr,savedlocs.get(0));
+    /*Grid<Actor> gr = getGrid();
+    ArrayList<Candy> saved = new ArrayList<Candy>();
+    ArrayList<Location> savedlocs = new ArrayList<Location>();
+    saved.add(createSameType());
+    savedlocs.add(getLocation());
+    saved.add(candy.createSameType());
+    savedlocs.add(candy.getLocation());
+    candy.removeSelfFromGrid();
+    saved.get(1).putSelfInGrid(gr,savedlocs.get(1));
+    removeSelfFromGrid();
+    saved.get(0).putSelfInGrid(gr,savedlocs.get(0));*/ //backup
   }
   public int getType()
   //gets the candy number
@@ -173,5 +206,69 @@ public class Candy extends Critter
       }
     }
     return dummydown;
+  }
+  public void createSameTypeHere(Location x)
+  //A candy will produce the same type candy at a given location
+  {
+    Grid<Actor> gr = getGrid();
+    Candy newcandy;
+    if (candynumber==1)
+      newcandy= new BlueCandy();
+    if (candynumber==2)
+      newcandy= new GreenCandy();
+    if (candynumber==3)
+      newcandy= new OrangeCandy();
+    if (candynumber==4)
+      newcandy= new PurpleCandy();
+    if (candynumber==5)
+      newcandy= new RedCandy();
+    if (candynumber==6)
+      newcandy= new YellowCandy();
+    newcandy.putSelfInGrid(gr,x);
+  }
+  public void createThisTypeHere(Location x, int number)
+  //A candy will produce the type of candy that it specifies at a given location
+  {
+    Grid<Actor> gr = getGrid();
+    Candy newcandy;
+    if (number==1)
+      newcandy= new BlueCandy();
+    if (number==2)
+      newcandy= new GreenCandy();
+    if (number==3)
+      newcandy= new OrangeCandy();
+    if (number==4)
+      newcandy= new PurpleCandy();
+    if (number==5)
+      newcandy= new RedCandy();
+    if (number==6)
+      newcandy= new YellowCandy();
+    newcandy.putSelfInGrid(gr,x);
+  }
+  public Candy createSameType()
+  //returns a new candy of the same type
+  {
+    Candy newcandy;
+    if (candynumber==1)
+      newcandy= new BlueCandy();
+    if (candynumber==2)
+      newcandy= new GreenCandy();
+    if (candynumber==3)
+      newcandy= new OrangeCandy();
+    if (candynumber==4)
+      newcandy= new PurpleCandy();
+    if (candynumber==5)
+      newcandy= new RedCandy();
+    if (candynumber==6)
+      newcandy= new YellowCandy();
+    return newcandy;
+  }
+  public void destroy(ArrayList<Location> list)
+  {
+    Grid<Actor> gr = getGrid();
+    for (Location l: list)
+    {
+      gr.remove(l);
+    }
   }
 }
