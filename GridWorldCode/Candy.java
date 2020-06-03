@@ -1,5 +1,6 @@
 import info.gridworld.actor.*;
 import java.util.ArrayList;
+import java.awt.Color;
 import info.gridworld.grid.*;
 public class Candy extends Actor
 {
