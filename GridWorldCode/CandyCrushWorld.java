@@ -1,6 +1,6 @@
 public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
-  public CandyCrushWorld//We need to decide dimensions of the grid
+  public CandyCrushWorld()//We need to decide dimensions of the grid
   {
 
   }
