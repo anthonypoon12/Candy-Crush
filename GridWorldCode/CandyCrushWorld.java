@@ -1,3 +1,6 @@
+package info.gridworld.actor;
+import info.gridworld.actor.*;
+import java.util.ArrayList;
 public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
   public CandyCrushWorld()//We need to decide dimensions of the grid

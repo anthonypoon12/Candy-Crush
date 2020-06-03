@@ -1,3 +1,6 @@
+package info.gridworld.actor;
+import info.gridworld.actor.*;
+import java.util.ArrayList;
 public class Candy extends Critter
 {
   protected int candynumber = 0;//refers to the type of candy
