@@ -6,5 +6,6 @@ public class OrangeCandy extends Candy
   public OrangeCandy()
   {
     candynumber = 3;
+    setColor(Color.ORANGE);
   }
 }
