@@ -86,7 +86,7 @@ public class Candy extends Actor
     ArrayList<Location> dummyright = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location oneright = checkifout(loc.getAdjacentLocation(90));
+    //Location oneright = checkifout(loc.getAdjacentLocation(90));
     /*if ((gr.isValid(oneright)) && (gr.get(oneright).getType()==candynumber))//if candy directly to right is same type
     {
       dummyright.add(oneright);
