@@ -5,6 +5,7 @@ public class PurpleCandy extends Candy
 {
   public PurpleCandy()
   {
+    super();
     candynumber = 4;
     setColor(Color.PURPLE);
   }
