@@ -1,4 +1,4 @@
-/* 
+/*
  * AP(r) Computer Science GridWorld Case Study:
  * Copyright(c) 2005-2006 Cay S. Horstmann (http://horstmann.com)
  *
@@ -10,7 +10,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * @author Cay Horstmann
  */
 
@@ -32,6 +32,7 @@ public class Actor
     private Location location;
     private int direction;
     private Color color;
+    protected int candynumber=0;
 
     /**
      * Constructs a blue actor that is facing north.
@@ -177,7 +178,7 @@ public class Actor
     /**
      * Reverses the direction of this actor. Override this method in subclasses
      * of <code>Actor</code> to define types of actors with different behavior
-     * 
+     *
      */
     public void act()
     {
@@ -192,5 +193,10 @@ public class Actor
     {
         return getClass().getName() + "[location=" + location + ",direction="
                 + direction + ",color=" + color + "]";
+    }
+    public int getType()
+    //gets the candy number
+    {
+      return candynumber;
     }
 }

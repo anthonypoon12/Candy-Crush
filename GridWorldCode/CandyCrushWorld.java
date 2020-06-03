@@ -1,6 +1,6 @@
-package info.gridworld.actor;
 import info.gridworld.actor.*;
 import java.util.ArrayList;
+import info.gridworld.grid.*;
 public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
   public CandyCrushWorld()//We need to decide dimensions of the grid
@@ -9,7 +9,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
   }
   public void fillWorld()//needs to detect for combos
   {
-    Grid<T> gr = getGrid();
+    Grid<Actor> gr = getGrid();
     int rows = gr.getNumRows();
     int cols = gr.getNumCols();
     if (rows > 0 && cols > 0) // bounded grid
@@ -45,7 +45,8 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
     else
       return (new PurpleCandy());
   }
-  public void Gravity(){ //invoking once will make all actors with an empty space below drop one space down
+  public void Gravity()
+    { //invoking once will make all actors with an empty space below drop one space down
     Grid<Actor> g = getGrid();
     Actor obj;
     ArrayList<Actor> sorted = new ArrayList<Actor>();
@@ -63,4 +64,5 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 	    if(g.isValid(next) && g.get(next) == null)
         a.moveTo(next);
     }
+  }
 }

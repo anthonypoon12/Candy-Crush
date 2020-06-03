@@ -1,9 +1,13 @@
-package info.gridworld.actor;
 import info.gridworld.actor.*;
 import java.util.ArrayList;
+import info.gridworld.grid.*;
 public class Candy extends Critter
 {
-  protected int candynumber = 0;//refers to the type of candy
+  public Candy()
+  {
+    super();
+    candynumber = 0;//refers to the type of candy
+  }
   public ArrayList<Location> detect()
   //returns an arraylist of all locations of candies in a possible combination
   {
@@ -13,9 +17,9 @@ public class Candy extends Critter
     {
       if (combolist.size()<5)
       {
-        for (Location l: combolisthor)
+        for (Location l: combolist)
         {
-          combolist = detectorvert(combolist,l,true);
+          combolist = detectvert(combolist,l,true);
         }
       }
       return combolist;
@@ -25,23 +29,18 @@ public class Candy extends Critter
     {
       if (combolist.size()<5)
       {
-        for (Location l: combolistvert)
+        for (Location l: combolist)
         {
-          combolist = detectorhor(combolist,l,true);
+          combolist = detecthor(combolist,l,true);
         }
       }
     }
     return combolist;
   }
-  public void act()
-  //needs to be changed
-  {
-
-  }
   public void fullswitch(Candy candy1)
   //switches candy with one next to it, detects if either has combo. If either combolists are larger than 3 elements, candies from that list are destroyed and other candy stays in place. Otherwise, they switch back.
   {
-    switch(candy1);
+    switchCandy(candy1);
     ArrayList<Location> combolist;
     ArrayList<Location> combolist2;
     combolist = detect();
@@ -51,11 +50,11 @@ public class Candy extends Critter
     if (combolist2.size()>=3)
       destroy(combolist2);
     if ((combolist.size()>=3)&&(combolist2.size()>=3))
-      switch(candy1);
+      switchCandy(candy1);
   }
-  public void switch(Candy candy)
+  public void switchCandy(Candy candy)
   //switches this candy with one next to it
-  {//might not work
+  {
     Grid<Actor> gr = getGrid();
     ArrayList<Location> savedlocs = new ArrayList<Location>();
     savedlocs.add(getLocation());
@@ -64,22 +63,6 @@ public class Candy extends Critter
     removeSelfFromGrid();
     candy.putSelfInGrid(gr,savedlocs.get(0));
     putSelfInGrid(gr,savedlocs.get(1));
-    /*Grid<Actor> gr = getGrid();
-    ArrayList<Candy> saved = new ArrayList<Candy>();
-    ArrayList<Location> savedlocs = new ArrayList<Location>();
-    saved.add(createSameType());
-    savedlocs.add(getLocation());
-    saved.add(candy.createSameType());
-    savedlocs.add(candy.getLocation());
-    candy.removeSelfFromGrid();
-    saved.get(1).putSelfInGrid(gr,savedlocs.get(1));
-    removeSelfFromGrid();
-    saved.get(0).putSelfInGrid(gr,savedlocs.get(0));*/ //backup
-  }
-  public int getType()
-  //gets the candy number
-  {
-    return candynumber;
   }
   public ArrayList<Location> detecthor(ArrayList<Location> list, Location x, boolean secondary)
   //checks horizontally for 3 or more in a row. if total matches are less than 3, it returns original list. else, it returns the list PLUS all new candies horizontally. If this method is used as a secondary method and the total matches are 3 or more, the original location will not be added to the output.
@@ -98,24 +81,24 @@ public class Candy extends Critter
   public ArrayList<Location> detectright(ArrayList<Location> list, Location x)
   //adds all locations to the right that match in a row to the list and returns the list. (up to four additions)
   {
-    ArrayList<Location> dummyrightleft = list;
+    ArrayList<Location> dummyright = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location oneright = loc.getAdjacentLocation(Location.RIGHT);
+    Location oneright = loc.getAdjacentLocation(90);
     if ((oneright!=null) && (gr.get(oneright).getType()==candynumber))//if candy directly to right is same type
     {
-      dummyrightleft.add(oneright);
-      Location tworight = loc.getAdjacentLocation(Location.RIGHT).getAdjacentLocation(Location.RIGHT);
+      dummyright.add(oneright);
+      Location tworight = loc.getAdjacentLocation(90).getAdjacentLocation(90);
       if ((tworight!=null)&&(gr.get(tworight).getType()==candynumber))//if candy 2 to the right is same type
       {
-        dummyrightleft.add(tworight);
-        Location threeright = loc.getAdjacentLocation(Location.RIGHT).getAdjacentLocation(Location.RIGHT).getAdjacentLocation(Location.RIGHT);
+        dummyright.add(tworight);
+        Location threeright = loc.getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90);
         if ((threeright!=null)&&(gr.get(threeright).getType()==candynumber))
         {
-          dummyrightleft.add(threeright);
-          Location fourright = loc.getAdjacentLocation(Location.RIGHT).getAdjacentLocation(Location.RIGHT).getAdjacentLocation(Location.RIGHT).getAdjacentLocation(Location.RIGHT);
+          dummyright.add(threeright);
+          Location fourright = loc.getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90);
           if ((fourright!=null)&&(gr.get(fourright).getType()==candynumber))
-            dummyrightleft.add(fourright);
+            dummyright.add(fourright);
         }
       }
     }
@@ -126,19 +109,19 @@ public class Candy extends Critter
     ArrayList<Location> dummyleft = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location oneleft = loc.getAdjacentLocation(Location.LEFT);
+    Location oneleft = loc.getAdjacentLocation(270);
     if ((oneleft!=null) && (gr.get(oneleft).getType()==candynumber))//if candy directly to left is same type
     {
       dummyleft.add(oneleft);
-      Location twoleft = loc.getAdjacentLocation(Location.LEFT).getAdjacentLocation(Location.LEFT);
+      Location twoleft = loc.getAdjacentLocation(270).getAdjacentLocation(270);
       if ((twoleft!=null)&&(gr.get(twoleft).getType()==candynumber))//if candy 2 to the left is same type
       {
         dummyleft.add(twoleft);
-        Location threeleft = loc.getAdjacentLocation(Location.LEFT).getAdjacentLocation(Location.LEFT).getAdjacentLocation(Location.LEFT);
+        Location threeleft = loc.getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270);
         if ((threeleft!=null)&&(gr.get(threeleft).getType()==candynumber))
         {
           dummyleft.add(threeleft);
-          Location fourleft = loc.getAdjacentLocation(Location.LEFT).getAdjacentLocation(Location.LEFT).getAdjacentLocation(Location.LEFT).getAdjacentLocation(Location.LEFT);
+          Location fourleft = loc.getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270);
           if ((fourleft!=null)&&(gr.get(fourleft).getType()==candynumber))
             dummyleft.add(fourleft);
         }
@@ -165,19 +148,19 @@ public class Candy extends Critter
     ArrayList<Location> dummyup = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location oneup = loc.getAdjacentLocation(Location.UP);
+    Location oneup = loc.getAdjacentLocation(0);
     if ((oneup!=null) && (gr.get(oneup).getType()==candynumber))//if candy directly to up is same type
     {
       dummyup.add(oneup);
-      Location twoup = loc.getAdjacentLocation(Location.UP).getAdjacentLocation(Location.UP);
+      Location twoup = loc.getAdjacentLocation(0).getAdjacentLocation(0);
       if ((twoup!=null)&&(gr.get(twoup).getType()==candynumber))//if candy 2 to the up is same type
       {
         dummyup.add(twoup);
-        Location threeup = loc.getAdjacentLocation(Location.UP).getAdjacentLocation(Location.UP).getAdjacentLocation(Location.UP);
+        Location threeup = loc.getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0);
         if ((threeup!=null)&&(gr.get(threeup).getType()==candynumber))
         {
           dummyup.add(threeup);
-          Location fourup = loc.getAdjacentLocation(Location.UP).getAdjacentLocation(Location.UP).getAdjacentLocation(Location.UP).getAdjacentLocation(Location.UP);
+          Location fourup = loc.getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0);
           if ((fourup!=null)&&(gr.get(fourup).getType()==candynumber))
             dummyup.add(fourup);
         }
@@ -187,22 +170,22 @@ public class Candy extends Critter
   }
   public ArrayList<Location> detectdown(ArrayList<Location> list, Location x)//adds all locations below that match in a row to the list and returns the list. (up to four additions)
   {
-    ArrayList<Location> down = list;
+    ArrayList<Location> dummydown = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location onedown = loc.getAdjacentLocation(Location.DOWN);
+    Location onedown = loc.getAdjacentLocation(180);
     if ((onedown!=null) && (gr.get(onedown).getType()==candynumber))//if candy directly to down is same type
     {
       dummydown.add(onedown);
-      Location twodown = loc.getAdjacentLocation(Location.DOWN).getAdjacentLocation(Location.DOWN);
+      Location twodown = loc.getAdjacentLocation(180).getAdjacentLocation(180);
       if ((twodown!=null)&&(gr.get(twodown).getType()==candynumber))//if candy 2 to the down is same type
       {
         dummydown.add(twodown);
-        Location threedown = loc.getAdjacentLocation(Location.DOWN).getAdjacentLocation(Location.DOWN).getAdjacentLocation(Location.DOWN);
+        Location threedown = loc.getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180);
         if ((threedown!=null)&&(gr.get(threedown).getType()==candynumber))
         {
           dummydown.add(threedown);
-          Location fourdown = loc.getAdjacentLocation(Location.DOWN).getAdjacentLocation(Location.DOWN).getAdjacentLocation(Location.DOWN).getAdjacentLocation(Location.DOWN);
+          Location fourdown = loc.getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180);
           if ((fourdown!=null)&&(gr.get(fourdown).getType()==candynumber))
             dummydown.add(fourdown);
         }
@@ -214,9 +197,9 @@ public class Candy extends Critter
   //A candy will produce the same type candy at a given location
   {
     Grid<Actor> gr = getGrid();
-    Candy newcandy;
+    Candy newcandy=null;
     if (candynumber==1)
-      newcandy= new BlueCandy();
+      newcandy = new BlueCandy();
     if (candynumber==2)
       newcandy= new GreenCandy();
     if (candynumber==3)
@@ -233,7 +216,7 @@ public class Candy extends Critter
   //A candy will produce the type of candy that it specifies at a given location
   {
     Grid<Actor> gr = getGrid();
-    Candy newcandy;
+    Candy newcandy=null;
     if (number==1)
       newcandy= new BlueCandy();
     if (number==2)
@@ -251,7 +234,7 @@ public class Candy extends Critter
   public Candy createSameType()
   //returns a new candy of the same type
   {
-    Candy newcandy;
+    Candy newcandy=null;
     if (candynumber==1)
       newcandy= new BlueCandy();
     if (candynumber==2)
