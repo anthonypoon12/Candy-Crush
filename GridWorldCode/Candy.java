@@ -80,10 +80,10 @@ public class Candy extends Actor
     else
       return list;
   }
-  public ArrayList<Location> detectright(ArrayList<Location> list, Location x)
+  public ArrayList<Location> detectright(/*ArrayList<Location> list,*/ Location x)
   //adds all locations to the right that match in a row to the list and returns the list. (up to four additions)
   {
-    ArrayList<Location> dummyright = list;
+    ArrayList<Location> dummyright = new ArrayList<Location>();//list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
     //Location oneright = checkifout(loc.getAdjacentLocation(90));
