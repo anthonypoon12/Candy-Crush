@@ -1,2 +1,2 @@
-javac -cp ".;./gridworld.jar" PredatorRunner.java
-java -cp ".;./gridworld.jar" PredatorRunner
+javac -cp ".;./gridworld.jar" CandyCrushRunner.java
+java -cp ".;./gridworld.jar" CandyCrushRunner
