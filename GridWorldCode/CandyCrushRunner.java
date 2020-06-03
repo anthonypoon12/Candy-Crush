@@ -7,5 +7,6 @@ public class CandyCrushRunner
   {
       CandyCrushWorld world = new CandyCrushWorld();
       world.fillWorld();
+      world.show();
   }
 }
