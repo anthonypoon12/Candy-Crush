@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.awt.Color;
 import info.gridworld.grid.*;
 public class Candy extends Actor
+//add "not contain in grid" parts
 {
   public Candy()
   {
@@ -85,20 +86,20 @@ public class Candy extends Actor
     ArrayList<Location> dummyright = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location oneright = loc.getAdjacentLocation(90);
-    if ((oneright!=null) && (gr.get(oneright).getType()==candynumber))//if candy directly to right is same type
+    Location oneright = checkifout(loc.getAdjacentLocation(90));
+    if ((gr.isValid(oneright)) && (gr.get(oneright).getType()==candynumber))//if candy directly to right is same type
     {
       dummyright.add(oneright);
-      Location tworight = loc.getAdjacentLocation(90).getAdjacentLocation(90);
-      if ((tworight!=null)&&(gr.get(tworight).getType()==candynumber))//if candy 2 to the right is same type
+      Location tworight = checkifout(loc.getAdjacentLocation(90).getAdjacentLocation(90));
+      if ((gr.isValid(tworight))&&(gr.get(tworight).getType()==candynumber))//if candy 2 to the right is same type
       {
         dummyright.add(tworight);
-        Location threeright = loc.getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90);
-        if ((threeright!=null)&&(gr.get(threeright).getType()==candynumber))
+        Location threeright = checkifout(loc.getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90));
+        if ((gr.isValid(threeright))&&(gr.get(threeright).getType()==candynumber))
         {
           dummyright.add(threeright);
-          Location fourright = loc.getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90);
-          if ((fourright!=null)&&(gr.get(fourright).getType()==candynumber))
+          Location fourright = checkifout(loc.getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90).getAdjacentLocation(90));
+          if ((gr.isValid(fourright))&&(gr.get(fourright).getType()==candynumber))
             dummyright.add(fourright);
         }
       }
@@ -110,20 +111,20 @@ public class Candy extends Actor
     ArrayList<Location> dummyleft = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location oneleft = loc.getAdjacentLocation(270);
-    if ((oneleft!=null) && (gr.get(oneleft).getType()==candynumber))//if candy directly to left is same type
+    Location oneleft = checkifout(loc.getAdjacentLocation(270));
+    if ((gr.isValid(oneleft)) && (gr.get(oneleft).getType()==candynumber))//if candy directly to left is same type
     {
       dummyleft.add(oneleft);
-      Location twoleft = loc.getAdjacentLocation(270).getAdjacentLocation(270);
-      if ((twoleft!=null)&&(gr.get(twoleft).getType()==candynumber))//if candy 2 to the left is same type
+      Location twoleft = checkifout(loc.getAdjacentLocation(270).getAdjacentLocation(270));
+      if ((gr.isValid(twoleft))&&(gr.get(twoleft).getType()==candynumber))//if candy 2 to the left is same type
       {
         dummyleft.add(twoleft);
-        Location threeleft = loc.getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270);
-        if ((threeleft!=null)&&(gr.get(threeleft).getType()==candynumber))
+        Location threeleft = checkifout(loc.getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270));
+        if ((gr.isValid(threeleft))&&(gr.get(threeleft).getType()==candynumber))
         {
           dummyleft.add(threeleft);
-          Location fourleft = loc.getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270);
-          if ((fourleft!=null)&&(gr.get(fourleft).getType()==candynumber))
+          Location fourleft = checkifout(loc.getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270).getAdjacentLocation(270));
+          if ((gr.isValid(fourleft))&&(gr.get(fourleft).getType()==candynumber))
             dummyleft.add(fourleft);
         }
       }
@@ -149,20 +150,20 @@ public class Candy extends Actor
     ArrayList<Location> dummyup = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location oneup = loc.getAdjacentLocation(0);
-    if ((oneup!=null) && (gr.get(oneup).getType()==candynumber))//if candy directly to up is same type
+    Location oneup = checkifout(loc.getAdjacentLocation(0));
+    if ((gr.isValid(oneup)) && (gr.get(oneup).getType()==candynumber))//if candy directly to up is same type
     {
       dummyup.add(oneup);
-      Location twoup = loc.getAdjacentLocation(0).getAdjacentLocation(0);
-      if ((twoup!=null)&&(gr.get(twoup).getType()==candynumber))//if candy 2 to the up is same type
+      Location twoup = checkifout(loc.getAdjacentLocation(0).getAdjacentLocation(0));
+      if (((gr.isValid(twoup))&&(gr.get(twoup).getType()==candynumber))//if candy 2 to the up is same type
       {
         dummyup.add(twoup);
-        Location threeup = loc.getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0);
-        if ((threeup!=null)&&(gr.get(threeup).getType()==candynumber))
+        Location threeup = checkifout(loc.getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0));
+        if (((gr.isValid(threeup))&&(gr.get(threeup).getType()==candynumber))
         {
           dummyup.add(threeup);
-          Location fourup = loc.getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0);
-          if ((fourup!=null)&&(gr.get(fourup).getType()==candynumber))
+          Location fourup = checkifout(loc.getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0).getAdjacentLocation(0));
+          if (((gr.isValid(fourup))&&(gr.get(fourup).getType()==candynumber))
             dummyup.add(fourup);
         }
       }
@@ -174,20 +175,20 @@ public class Candy extends Actor
     ArrayList<Location> dummydown = list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
-    Location onedown = loc.getAdjacentLocation(180);
-    if ((onedown!=null) && (gr.get(onedown).getType()==candynumber))//if candy directly to down is same type
+    Location onedown = checkifout(loc.getAdjacentLocation(180);
+    if (((gr.isValid(onedown)) && (gr.get(onedown).getType()==candynumber))//if candy directly to down is same type
     {
       dummydown.add(onedown);
-      Location twodown = loc.getAdjacentLocation(180).getAdjacentLocation(180);
-      if ((twodown!=null)&&(gr.get(twodown).getType()==candynumber))//if candy 2 to the down is same type
+      Location twodown = checkifout(loc.getAdjacentLocation(180).getAdjacentLocation(180));
+      if (((gr.isValid(twodown))&&(gr.get(twodown).getType()==candynumber))//if candy 2 to the down is same type
       {
         dummydown.add(twodown);
-        Location threedown = loc.getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180);
-        if ((threedown!=null)&&(gr.get(threedown).getType()==candynumber))
+        Location threedown = checkifout(loc.getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180));
+        if ((gr.isValid(threedown))&&(gr.get(threedown).getType()==candynumber))
         {
           dummydown.add(threedown);
-          Location fourdown = loc.getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180);
-          if ((fourdown!=null)&&(gr.get(fourdown).getType()==candynumber))
+          Location fourdown = checkifout(loc.getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180).getAdjacentLocation(180));
+          if ((gr.isValid(fourdown))&&(gr.get(fourdown).getType()==candynumber))
             dummydown.add(fourdown);
         }
       }
@@ -257,5 +258,12 @@ public class Candy extends Actor
     {
       gr.remove(l);
     }
+  }
+  public Location checkifout(Location l)
+  {
+    Grid<Actor> gr = getGrid();
+    if (gr.isValid(l))
+      return l;
+    return null;
   }
 }
