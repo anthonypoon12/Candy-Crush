@@ -87,7 +87,7 @@ public class Candy extends Actor
     Grid<Actor> gr = getGrid();
     Location loc = x;
     Location oneright = checkifout(loc.getAdjacentLocation(90));
-    if ((gr.isValid(oneright)) && (gr.get(oneright).getType()==candynumber))//if candy directly to right is same type
+    /*if ((gr.isValid(oneright)) && (gr.get(oneright).getType()==candynumber))//if candy directly to right is same type
     {
       dummyright.add(oneright);
       Location tworight = checkifout(loc.getAdjacentLocation(90).getAdjacentLocation(90));
@@ -103,7 +103,7 @@ public class Candy extends Actor
             dummyright.add(fourright);
         }
       }
-    }
+    }*/
     return dummyright;
   }
   public ArrayList<Location> detectleft(ArrayList<Location> list, Location x)//adds all locations to the left that match in a row to the list and returns the list. (up to four additions)
