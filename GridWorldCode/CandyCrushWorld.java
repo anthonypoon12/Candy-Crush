@@ -33,15 +33,15 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
   public Candy randomCandy()//returns a random candy
   {
     int x =(int)(Math.random()*6);
-    if(x==0)
+    if(x==1)
       return (new RedCandy());
-    else if(x==1)
-      return (new OrangeCandy());
     else if(x==2)
-      return (new YellowCandy());
+      return (new OrangeCandy());
     else if(x==3)
-      return (new GreenCandy());
+      return (new YellowCandy());
     else if(x==4)
+      return (new GreenCandy());
+    else if(x==5)
       return (new BlueCandy());
     else
       return (new PurpleCandy());

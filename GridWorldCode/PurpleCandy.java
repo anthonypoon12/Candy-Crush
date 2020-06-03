@@ -8,6 +8,6 @@ public class PurpleCandy extends Candy
   {
     super();
     candynumber = 4;
-    setColor(Color.PURPLE);
+    setColor(Color.MAGENTA);
   }
 }
