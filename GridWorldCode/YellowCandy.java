@@ -7,7 +7,7 @@ public class YellowCandy extends Candy
   public YellowCandy()
   {
     super();
-    candynumber = 6;
+    changeType(6);
     setColor(Color.YELLOW);
   }
 }

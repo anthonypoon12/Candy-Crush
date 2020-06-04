@@ -7,7 +7,7 @@ public class GreenCandy extends Candy
   public GreenCandy()
   {
     super();
-    candynumber = 2;
+    changeType(2);
     setColor(Color.GREEN);
   }
 }

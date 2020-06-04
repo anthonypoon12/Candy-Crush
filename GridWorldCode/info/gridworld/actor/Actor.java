@@ -32,7 +32,8 @@ public class Actor
     private Location location;
     private int direction;
     private Color color;
-    protected int candynumber=0;
+    private int candynumber=0;
+    private int powerup=0;
 
     /**
      * Constructs a blue actor that is facing north.
@@ -198,5 +199,17 @@ public class Actor
     //gets the candy number
     {
       return candynumber;
+    }
+    public void changeType(int x)
+    {
+      candynumber=x;
+    }
+    public int getPowerup()
+    {
+      return powerup;
+    }
+    public void changePowerUp(int x)
+    {
+      powerup=x;
     }
 }

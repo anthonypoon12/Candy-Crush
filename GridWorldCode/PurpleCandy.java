@@ -7,7 +7,7 @@ public class PurpleCandy extends Candy
   public PurpleCandy()
   {
     super();
-    candynumber = 4;
+    changeType(4);
     setColor(Color.MAGENTA);
   }
 }
