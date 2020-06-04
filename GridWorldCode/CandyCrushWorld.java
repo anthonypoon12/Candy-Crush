@@ -6,7 +6,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
   public CandyCrushWorld()//We need to decide dimensions of the grid
   {
-
+    //super(new BoundedGrid(9,9));
   }
   public void fillWorld()//needs to detect for combos
   {
