@@ -2,12 +2,6 @@ import info.gridworld.actor.*;
 import java.util.ArrayList;
 import info.gridworld.grid.*;
 import java.awt.Color;
-public class BlueCandy extends Candy
+public class BlueCandyStriped extends BlueCandy
 {
-  public BlueCandy()
-  {
-    super();
-    candynumber = 1;
-    setColor(Color.BLUE);
-  }
 }
