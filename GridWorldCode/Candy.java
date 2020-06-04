@@ -296,4 +296,9 @@ public class Candy extends Actor
     }
     return output;
   }
+  public void DetectandDestroy()
+  {
+    ArrayList<Location> list = detect();
+    destroy(list);
+  }
 }
