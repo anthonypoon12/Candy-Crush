@@ -2,12 +2,13 @@ import info.gridworld.actor.*;
 import java.util.ArrayList;
 import info.gridworld.grid.*;
 import java.awt.Color;
-public class OrangeCandyStriped extends Striped
+public class OrangeCandyStripedHor extends Striped
 {
-  public OrangeCandyStriped()
+  public OrangeCandyStripedHor()
   {
     super();
     changeType(3);
     setColor(Color.ORANGE);
+    changeHorizontal(true);
   }
 }
