@@ -1,6 +1,6 @@
-public class ColourBomb extends candy
+public class ColourBomb extends Candy
 {
-  public class ColourBomb
+  public ColourBomb()
   {
     super();
     changePowerUp(3);

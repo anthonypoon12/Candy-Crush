@@ -296,6 +296,24 @@ public class Candy extends Actor
       newcandy= new YellowCandyStripedVert();
     newcandy.putSelfInGrid(gr,x);
   }
+  public void createWrapped(Location x, int number)
+  {
+    Grid<Actor> gr = getGrid();
+    Candy newcandy=null;
+    if (number==1)
+      newcandy= new BlueCandyWrapped();
+    if (number==2)
+      newcandy= new GreenCandyWrapped();
+    if (number==3)
+      newcandy= new OrangeCandyWrapped();
+    if (number==4)
+      newcandy= new PurpleCandyWrapped();
+    if (number==5)
+      newcandy= new RedCandyWrapped();
+    if (number==6)
+      newcandy= new YellowCandyWrapped();
+    newcandy.putSelfInGrid(gr,x);
+  }
   public Candy createSameType()
   //returns a new candy of the same type
   {
@@ -365,6 +383,32 @@ public class Candy extends Actor
       {
         if (list.get(0).getRow()==list.get(1).getRow())
           createHorizontalStripe(list.get(0),getType());
+        else
+          createVerticalStripe(list.get(0),getType());
+      }
+      else if(list.size()==5)
+      {
+        int isbomb=0;
+        int isbomb2=0;
+        int dummyrow=list.get(0).getRow();
+        int dummycol=list.get(0).getCol();
+        for (Location l: list)
+        {
+          if (l.getRow()==dummyrow)
+            isbomb++;
+          if (l.getCol()==dummycol)
+            isbomb2++;
+        }
+        if ((isbomb==5)||(isbomb2==5))
+        {
+          ColourBomb cb = new ColourBomb();
+          cb.putSelfInGrid(gr,list.get(0));
+        }
+      }
+      else if (list.size()>3)
+      {
+        createWrapped(list.get(0),getType());
+        System.out.println(list.get(0));
       }
   }
 }

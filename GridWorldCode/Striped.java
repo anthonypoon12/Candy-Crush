@@ -1,7 +1,7 @@
 public class Striped extends Candy
 {
-  private horizontal = false;
-  private vertical = false;
+  private boolean horizontal = false;
+  private boolean vertical = false;
   public Striped()
   {
     super();
@@ -15,11 +15,11 @@ public class Striped extends Candy
   {
     return vertical;
   }
-  public changeHorizontal(boolean x)
+  public void changeHorizontal(boolean x)
   {
     horizontal=x;
   }
-  public changeVertical(boolean x)
+  public void changeVertical(boolean x)
   {
     vertical=x;
   }

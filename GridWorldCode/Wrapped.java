@@ -1,6 +1,6 @@
 public class Wrapped extends Candy
 {
-  public class Wrapped()
+  public Wrapped()
   {
     super();
     changePowerUp(2);
