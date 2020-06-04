@@ -301,4 +301,29 @@ public class Candy extends Actor
     ArrayList<Location> list = detect();
     destroy(list);
   }
+  public void changeType(int num)
+  {
+    Grid<Actor> gr = getGrid();
+    Location loc = getLocation();
+    Candy newcandy=null;
+    if (num==1)
+      newcandy= new BlueCandy();
+    if (num==2)
+      newcandy= new GreenCandy();
+    if (num==3)
+      newcandy= new OrangeCandy();
+    if (num==4)
+      newcandy= new PurpleCandy();
+    if (num==5)
+      newcandy= new RedCandy();
+    if (num==6)
+      newcandy= new YellowCandy();
+    removeSelfFromGrid();
+    newcandy.putSelfInGrid(gr,loc);
+  }
+  /*public detectPowerUps(ArrayList<Location> list)
+  {
+    if (list.size()==4)
+
+  }*/
 }
