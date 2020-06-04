@@ -376,6 +376,7 @@ public class Candy extends Actor
   }
   public void DetectDestroyPowerup()
   {
+      boolean bombed=false;
       Grid<Actor> gr = getGrid();
       ArrayList<Location> list = detect();
       destroy(list);
@@ -401,11 +402,12 @@ public class Candy extends Actor
         }
         if ((isbomb==5)||(isbomb2==5))
         {
+          bombed=true;
           ColourBomb cb = new ColourBomb();
           cb.putSelfInGrid(gr,list.get(0));
         }
       }
-      else if (list.size()>3)
+      if ((list.size()>4)&&(!bombed))
       {
         createWrapped(list.get(0),getType());
         System.out.println(list.get(0));
