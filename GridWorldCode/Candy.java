@@ -81,8 +81,8 @@ public class Candy extends Actor
   //checks horizontally for 3 or more in a row. if total matches are less than 3, it returns original list. else, it returns the list PLUS all new candies horizontally. If this method is used as a secondary method and the total matches are 3 or more, the original location will not be added to the output.
   {
     Location loc = x;
-    ArrayList<Location> dummyhor = list;
-    ArrayList<Location> dummyhor2 = list;
+    ArrayList<Location> dummyhor = copyOfList(list);
+    ArrayList<Location> dummyhor2 = copyOfList(list);
     if (list.size()<3)
       {
         dummyhor.clear();
@@ -90,10 +90,11 @@ public class Candy extends Actor
       }
     if (!secondary)
       dummyhor.add(loc);
+    //System.out.println("dummyhor: "+ dummyhor + "\ndummyhor2: " + dummyhor + "\nlist: " + list);
     dummyhor = detectright(dummyhor, loc);
     dummyhor=detectleft(dummyhor, loc);
     if ((dummyhor.size()-dummyhor2.size()>=3)&&(!secondary))
-      return dummyhor;
+        return dummyhor;
     else if ((dummyhor.size()-dummyhor2.size()>=2)&&(secondary))
       return dummyhor;
     else
@@ -102,7 +103,7 @@ public class Candy extends Actor
   public ArrayList<Location> detectright(ArrayList<Location> list, Location x)
   //adds all locations to the right that match in a row to the list and returns the list. (up to four additions)
   {
-    ArrayList<Location> dummyright = new ArrayList<Location>();//list;
+    ArrayList<Location> dummyright = list;//list;
     Grid<Actor> gr = getGrid();
     Location loc = x;
     Location oneright = loc.getAdjacentLocation(90);
@@ -154,8 +155,8 @@ public class Candy extends Actor
   //checks vertically for 3 or more in a row. if total matches are less than 3, it returns original list. else, it returns the list PLUS all new candies vertically. If this method is used as a secondary method and the total matches are 3 or more, the original location will not be added to the output.
   {
     Location loc = x;
-    ArrayList<Location> dummyvert = list;
-    ArrayList<Location> dummyvert2 = list;
+    ArrayList<Location> dummyvert = copyOfList(list);
+    ArrayList<Location> dummyvert2 = copyOfList(list);
     if (list.size()<3)
       {
         dummyvert.clear();
@@ -285,5 +286,14 @@ public class Candy extends Actor
     {
       gr.remove(l);
     }
+  }
+  public ArrayList<Location> copyOfList(ArrayList<Location> x)
+  {
+    ArrayList<Location> output = new ArrayList<Location>();
+    for (Location l: x)
+    {
+      output.add(l);
+    }
+    return output;
   }
 }
