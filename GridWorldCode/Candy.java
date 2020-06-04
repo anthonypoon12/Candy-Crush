@@ -260,6 +260,42 @@ public class Candy extends Actor
       newcandy= new YellowCandy();
     newcandy.putSelfInGrid(gr,x);
   }
+  public void createHorizontalStripe(Location x, int number)
+  {
+    Grid<Actor> gr = getGrid();
+    Candy newcandy=null;
+    if (number==1)
+      newcandy= new BlueCandyStripedHor();
+    if (number==2)
+      newcandy= new GreenCandyStripedHor();
+    if (number==3)
+      newcandy= new OrangeCandyStripedHor();
+    if (number==4)
+      newcandy= new PurpleCandyStripedHor();
+    if (number==5)
+      newcandy= new RedCandyStripedHor();
+    if (number==6)
+      newcandy= new YellowCandyStripedHor();
+    newcandy.putSelfInGrid(gr,x);
+  }
+  public void createVerticalStripe(Location x, int number)
+  {
+    Grid<Actor> gr = getGrid();
+    Candy newcandy=null;
+    if (number==1)
+      newcandy= new BlueCandyStripedVert();
+    if (number==2)
+      newcandy= new GreenCandyStripedVert();
+    if (number==3)
+      newcandy= new OrangeCandyStripedVert();
+    if (number==4)
+      newcandy= new PurpleCandyStripedVert();
+    if (number==5)
+      newcandy= new RedCandyStripedVert();
+    if (number==6)
+      newcandy= new YellowCandyStripedVert();
+    newcandy.putSelfInGrid(gr,x);
+  }
   public Candy createSameType()
   //returns a new candy of the same type
   {
@@ -320,9 +356,15 @@ public class Candy extends Actor
     removeSelfFromGrid();
     newcandy.putSelfInGrid(gr,loc);
   }
-  /*public detectPowerUps(ArrayList<Location> list)
+  public void DetectDestroyPowerup()
   {
-    if (list.size()==4)
-
-  }*/
+      Grid<Actor> gr = getGrid();
+      ArrayList<Location> list = detect();
+      destroy(list);
+      if (list.size()==4)
+      {
+        if (list.get(0).getRow()==list.get(1).getRow())
+          createHorizontalStripe(list.get(0),getType());
+      }
+  }
 }
