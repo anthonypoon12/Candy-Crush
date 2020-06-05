@@ -54,9 +54,9 @@ public class Candy extends Actor
   //switches candy with one next to it, detects if either has combo. If either combolists are larger than 3 elements, candies from that list are destroyed and other candy stays in place. Otherwise, they switch back.
   {
     boolean isnextto = false;
-    for (Location l : getOccupiedAdjacentLocations())
+    for (Location l : getGrid().getOccupiedAdjacentLocations(getLocation()))
     {
-      if (cand1.getLocation().equals(l))
+      if (candy1.getLocation().equals(l))
         isnextto=true;
     }
     if (isnextto)
