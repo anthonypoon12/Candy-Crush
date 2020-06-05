@@ -361,7 +361,7 @@ public class GUIController<T>
         parentFrame.repaint();
     }
     private void swap(Location l, Location l2){ 
-    	Grid<T> gr = parentFrame.getWorld().getGrid();
+    	Grid<Actor> gr = parentFrame.getWorld().getGrid();
 	Actor a = (Actor) gr.get(l);
 	Actor b = (Actor) gr.get(l2);
 	ArrayList<Location> savedlocs = new ArrayList<Location>();
