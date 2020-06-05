@@ -1,4 +1,4 @@
-import javax.*;
+import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,12 +9,12 @@ public class PlayButton{
         JFrame frame=new JFrame("");
         frame.setSize(200,200);
         frame.setVisible(true);
-        frame.setDefaultCloseOPeration(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         frame.add(panel);
         JButton button = new JButton("PLAY?");
         button.setSize(150,150);
-        bitton.setVisible(true);
+        button.setVisible(true);
         panel.add(button);
     }
 }
