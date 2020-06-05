@@ -20,6 +20,7 @@ package info.gridworld.gui;
 
 import info.gridworld.grid.*;
 import info.gridworld.world.World;
+import info.gridworld.actor*;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -361,8 +362,8 @@ public class GUIController<T>
     }
     private void swap(Location l, Location l2){ 
     	Grid<T> gr = parentFrame.getWorld().getGrid();
-	Actor a = gr.get(l);
-	Actor b = gr.get(l2);
+	Actor a = (Actor) gr.get(l);
+	Actor b = (Actor) gr.get(l2);
 	ArrayList<Location> savedlocs = new ArrayList<Location>();
     	savedlocs.add(a.getLocation());
     	savedlocs.add(b.getLocation());
