@@ -348,10 +348,11 @@ public class GUIController<T>
 	{
 		selLocDos=loc;
 		swap(selLoc, selLocDos);////if two loc has been selected do swap method
+		select=0;
 	}
 
 
-	if (select == 0)
+	else if (select == 0)
 	{
 		select = 1;
 		selLoc = loc;
@@ -371,6 +372,7 @@ public class GUIController<T>
     	a.removeSelfFromGrid();
     	b.putSelfInGrid(gr,savedlocs.get(0));
     	a.putSelfInGrid(gr,savedlocs.get(1));
+	
     }
 
 
