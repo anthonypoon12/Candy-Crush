@@ -32,6 +32,7 @@ import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.ArrayList;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -66,6 +67,8 @@ public class GUIController<T>
 
 	private int select;   		//new variables to lock onto an Actor
 	private Location selLoc;
+	private int selectDos;       //sees if selLocDos has been given a location
+	private Location selLocDos; //holds second location for swapping
 
     /**
      * Creates a new controller tied to the specified display and gui
@@ -335,16 +338,17 @@ public class GUIController<T>
 	//if (loc != null && !world.locationClicked(loc))
         //    		editLocation();
 
-	if (select == 1 && selLoc.equals(loc))			// NEW code to control pop-up menu
+	if (select >= 1 && selLoc.equals(loc))			
 	{
-		if (loc != null && !world.locationClicked(loc))
-            		editLocation();
+		select=0;
+		selLoc=null;
 	}
-	else
-	{
-		select = 0;
+	else if(select == 1 && !selLoc.equals(loc)) //when you click a second time, set selLocDos to the second clicked location
+	{	
+		selLocDos=loc;
+		swap(selLoc, selLocDos);////if two loc has been selected do swap method
 	}
-
+	
 
 	if (select == 0)
 	{
@@ -352,8 +356,23 @@ public class GUIController<T>
 		selLoc = loc;
 	}
 
+
         parentFrame.repaint();
     }
+    private void swap(Location l, Location l2){ 
+    	Grid<T> gr = parentFrame.getWorld().getGrid();
+	Actor a = gr.get(l);
+	Actor b = gr.get(l2);
+	ArrayList<Location> savedlocs = new ArrayList<Location>();
+    	savedlocs.add(a.getLocation());
+    	savedlocs.add(b.getLocation());
+    	b.removeSelfFromGrid();
+    	a.removeSelfFromGrid();
+    	b.putSelfInGrid(gr,savedlocs.get(0));
+    	a.putSelfInGrid(gr,savedlocs.get(1));
+    }
+    	
+    
 
     /**
      * Edits the contents of the current location, by displaying the constructor
