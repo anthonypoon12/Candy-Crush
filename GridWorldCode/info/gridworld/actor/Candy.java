@@ -379,7 +379,7 @@ public class Candy extends Actor
     removeSelfFromGrid();
     newcandy.putSelfInGrid(gr,loc);
   }
-  public void DetectDestroyPowerup()
+  public void DetectDestroyPowerup()//used to detect combos, destroy, and form powerups NOT for when candies switch but for cleanup
   {
       boolean bombed=false;
       Grid<Actor> gr = getGrid();
@@ -417,7 +417,7 @@ public class Candy extends Actor
         createWrapped(list.get(0),getType());
       }
   }
-  public void DetectDestroyPowerup(Candy candy)
+  public void DetectDestroyPowerup(Candy candy)//used to detect combos, destroy, and form powerups for when candies switch
   {
       boolean bombed=false;
       Grid<Actor> gr = getGrid();
