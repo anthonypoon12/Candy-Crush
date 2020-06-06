@@ -64,7 +64,7 @@ public class Candy extends Actor
     switchCandy(candy1);
     DetectDestroyPowerup();
     candy1.DetectDestroyPowerup();
-    if ()
+    if (getRandomEmptyLocation)
       switchCandy(candy1);
     }
   }
