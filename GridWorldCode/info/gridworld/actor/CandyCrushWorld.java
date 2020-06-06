@@ -31,6 +31,39 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
         }
     }
   }
+	
+public void collapse(){
+	  
+	Grid<Actor> g = getGrid();
+
+	Actor obj;
+
+	ArrayList<Actor> sorted = new ArrayList<Actor>();
+	for(int i = g.getNumRows()-1; i > 0; i--)
+	{
+		for(int j = 0; j < g.getNumCols(); j++)
+		{
+			obj = g.get(new Location(i, j));
+			if(obj != null)
+				sorted.add(obj);
+		}
+	}
+	
+
+        for (int k = 0; k < sorted.size(); k++)
+        {
+	    Actor a = sorted.get(k);
+            Location loc = a.getLocation();
+	    Location next = new Location(loc.getRow()+1, loc.getCol());
+	    if(g.isValid(next) && g.get(next) == null)	//check to make sure it's in the grid & not overlapping another Actor
+	    {
+		a.moveTo(next);
+		setMessage(""+sorted.size());
+	    }	
+        }
+  }
+
+
   public Candy randomCandy()//returns a random candy
   {
     int x =(int)(Math.random()*6);
