@@ -3,7 +3,8 @@ import info.gridworld.actor.*;
 import java.util.ArrayList;
 import info.gridworld.grid.*;
 import java.awt.Color;
-import info.gridworld.World.*;
+import info.gridworld.world.*;
+import info.gridworld.gui.*;
 public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
   public CandyCrushWorld()//We need to decide dimensions of the grid
