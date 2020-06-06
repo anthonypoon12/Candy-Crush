@@ -15,38 +15,38 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
     int cols = gr.getNumCols();
     if (rows > 0 && cols > 0) // bounded grid
     {
-      // get all valid empty locations (Copied from World.java in the getRandomEmptyLocation())
-      ArrayList<Location> emptyLocs = new ArrayList<Location>();
-      for (int i = 0; i < rows; i++)
-          for (int j = 0; j < cols; j++)
-          {
-              Location loc = new Location(i, j);
-              if (gr.isValid(loc) && gr.get(loc) == null)
-                  emptyLocs.add(loc);
-          }
-        for (Location emptyloc: emptyLocs)
-        {
-          add(emptyloc, randomCandy());
-        }
         ArrayList<Location> allLocs = new ArrayList<Location>(); //from here down is new
         while (restart)
         {
-        for (int i = 0; i < rows; i++)
-          for (int j = 2-(i%3); j < cols; j+=3)
-          {
-            Location loc = new Location(i, j);
-            if (gr.isValid(loc))
-            {
-              allLocs.add(loc);
-              if (gr.get(loc) instanceof Candy)
+          // get all valid empty locations (Copied from World.java in the getRandomEmptyLocation())
+          ArrayList<Location> emptyLocs = new ArrayList<Location>();
+          for (int i = 0; i < rows; i++)
+              for (int j = 0; j < cols; j++)
               {
-                Candy candy = (Candy)gr.get(loc);
-                gridDetect(candy);
+                  Location loc = new Location(i, j);
+                  if (gr.isValid(loc) && gr.get(loc) == null)
+                      emptyLocs.add(loc);
+              }
+            for (Location emptyloc: emptyLocs)
+            {
+              add(emptyloc, randomCandy());
+            }
+          for (int i = 0; i < rows; i++)
+            for (int j = 2-(i%3); j < cols; j+=3)
+            {
+              Location loc = new Location(i, j);
+              if (gr.isValid(loc))
+              {
+                allLocs.add(loc);
+                if (gr.get(loc) instanceof Candy)
+                {
+                  Candy candy = (Candy)gr.get(loc);
+                  gridDetect(candy);
+                }
               }
             }
-          }
-          if (getRandomEmptyLocation()==null)
-            restart=false;
+            if (getRandomEmptyLocation()==null)
+              restart=false;
         }
     }
   }
