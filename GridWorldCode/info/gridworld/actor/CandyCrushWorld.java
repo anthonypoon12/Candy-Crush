@@ -9,6 +9,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
   public void fillWorld()//needs to detect for combos
   {
+    int restart=true;
     Grid<Actor> gr = getGrid();
     int rows = gr.getNumRows();
     int cols = gr.getNumCols();
@@ -28,32 +29,36 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
           add(emptyloc, randomCandy());
         }
         ArrayList<Location> allLocs = new ArrayList<Location>(); //from here down is new
+        while (restart)
+        {
         for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
+          for (int j = 2-(i%3); j < cols; j+=3)
+          {
+            Location loc = new Location(i, j);
+            if (gr.isValid(loc))
             {
-                Location loc = new Location(i, j);
-                if (gr.isValid(loc))
-                {
-                  allLocs.add(loc);
-                  if (gr.get(loc) instanceof Candy)
-                  {
-                  Candy candy = (Candy)gr.get(loc);
-                  gridDetect(candy);
-                  }
-                }
+              allLocs.add(loc);
+              if (gr.get(loc) instanceof Candy)
+              {
+                Candy candy = (Candy)gr.get(loc);
+                gridDetect(candy);
+              }
             }
+          }
+          if (getRandomEmptyLocation()==null)
+            restart=false;
+        }
     }
   }
   public void gridDetect(Candy candy)
   {
     ArrayList<Location> combolist;
-    ArrayList<Location> combolist2;
     combolist = candy.detect();
     if (combolist.size()>=3)
     {
       candy.destroy(combolist);
     }
-  }//up to here
+  }
 
   public Candy randomCandy()//returns a random candy
   {
