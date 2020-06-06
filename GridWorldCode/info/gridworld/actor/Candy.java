@@ -63,8 +63,8 @@ public class Candy extends Actor
     if (isnextto)
     {
     switchCandy(candy1);
-    DetectDestroyPowerup();
-    candy1.DetectDestroyPowerup();
+    DetectDestroyPowerup(candy1);
+    candy1.DetectDestroyPowerup(this);
     if (getGrid().getOccupiedLocations().size()==spots)
       switchCandy(candy1);
     }
@@ -388,6 +388,44 @@ public class Candy extends Actor
       if (list.size()==4)
       {
         if (list.get(0).getRow()==list.get(1).getRow())
+          createHorizontalStripe(list.get(0),getType());
+        else
+          createVerticalStripe(list.get(0),getType());
+      }
+      else if(list.size()==5)
+      {
+        int isbomb=0;
+        int isbomb2=0;
+        int dummyrow=list.get(0).getRow();
+        int dummycol=list.get(0).getCol();
+        for (Location l: list)
+        {
+          if (l.getRow()==dummyrow)
+            isbomb++;
+          if (l.getCol()==dummycol)
+            isbomb2++;
+        }
+        if ((isbomb==5)||(isbomb2==5))
+        {
+          bombed=true;
+          ColourBomb cb = new ColourBomb();
+          cb.putSelfInGrid(gr,list.get(0));
+        }
+      }
+      if ((list.size()>4)&&(!bombed))
+      {
+        createWrapped(list.get(0),getType());
+      }
+  }
+  public void DetectDestroyPowerup(Candy candy)
+  {
+      boolean bombed=false;
+      Grid<Actor> gr = getGrid();
+      ArrayList<Location> list = detect();
+      destroy(list);
+      if (list.size()==4)
+      {
+        if (candy.getLocation().getRow()==getLocation().getRow())
           createHorizontalStripe(list.get(0),getType());
         else
           createVerticalStripe(list.get(0),getType());
