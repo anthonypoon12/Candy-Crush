@@ -62,15 +62,9 @@ public class Candy extends Actor
     if (isnextto)
     {
     switchCandy(candy1);
-    ArrayList<Location> combolist;
-    ArrayList<Location> combolist2;
-    combolist = detect();
-    combolist2 = candy1.detect();
-    if (combolist.size()>=3)
-      destroy(combolist);
-    if (combolist2.size()>=3)
-      destroy(combolist2);
-    if ((combolist.size()<3)&&(combolist2.size()<3))
+    DetectDestroyPowerup();
+    candy1.DetectDestroyPowerup();
+    if ()
       switchCandy(candy1);
     }
   }
@@ -420,7 +414,6 @@ public class Candy extends Actor
       if ((list.size()>4)&&(!bombed))
       {
         createWrapped(list.get(0),getType());
-        System.out.println(list.get(0));
       }
   }
 }
