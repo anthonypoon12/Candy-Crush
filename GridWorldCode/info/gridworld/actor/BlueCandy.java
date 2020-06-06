@@ -1,13 +1,14 @@
+package info.gridworld.actor;
 import info.gridworld.actor.*;
 import java.util.ArrayList;
 import info.gridworld.grid.*;
 import java.awt.Color;
-public class GreenCandy extends Candy
+public class BlueCandy extends Candy
 {
-  public GreenCandy()
+  public BlueCandy()
   {
     super();
-    changeType(2);
-    setColor(Color.GREEN);
+    changeType(1);
+    setColor(Color.BLUE);
   }
 }

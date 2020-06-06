@@ -1,6 +1,6 @@
-/* 
+/*
  * AP(r) Computer Science GridWorld Case Study:
- * Copyright(c) 2002-2006 College Entrance Examination Board 
+ * Copyright(c) 2002-2006 College Entrance Examination Board
  * (http://www.collegeboard.com).
  *
  * This code is free software; you can redistribute it and/or modify
@@ -11,7 +11,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * @author Julie Zelenski
  * @author Cay Horstmann
  */
@@ -19,7 +19,8 @@
 package info.gridworld.gui;
 
 import info.gridworld.grid.*;
-import info.gridworld.world.World;
+import info.gridworld.world.*;
+import info.gridworld.actor.*;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -32,6 +33,7 @@ import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.ArrayList;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -66,6 +68,8 @@ public class GUIController<T>
 
 	private int select;   		//new variables to lock onto an Actor
 	private Location selLoc;
+	private int selectDos;       //sees if selLocDos has been given a location
+	private Location selLocDos; //holds second location for swapping
 
     /**
      * Creates a new controller tied to the specified display and gui
@@ -231,17 +235,17 @@ public class GUIController<T>
         stopButton = new JButton(resources.getString("button.gui.stop"));
 
         stuffButton = new JButton("stuff");	//NEW JButton
-        
+
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
         controlPanel.setBorder(BorderFactory.createEtchedBorder());
-        
+
         Dimension spacer = new Dimension(5, stepButton.getPreferredSize().height + 10);
-        
+
         controlPanel.add(Box.createRigidArea(spacer));
 
         controlPanel.add(stepButton);
         controlPanel.add(Box.createRigidArea(spacer));
-        controlPanel.add(runButton);				
+        controlPanel.add(runButton);
         controlPanel.add(Box.createRigidArea(spacer));
         controlPanel.add(stopButton);
 
@@ -283,7 +287,7 @@ public class GUIController<T>
                 step();
             }
         });
-       runButton.addActionListener(new ActionListener()	
+       runButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
@@ -331,29 +335,41 @@ public class GUIController<T>
     {
         World<T> world = parentFrame.getWorld();
         Location loc = display.getCurrentLocation();
-	
+
 	//if (loc != null && !world.locationClicked(loc))
         //    		editLocation();
 
-	if (select == 1 && selLoc.equals(loc))			// NEW code to control pop-up menu
+	if (select >= 1 && selLoc.equals(loc))
 	{
-		if (loc != null && !world.locationClicked(loc))
-            		editLocation();
+		select=0;
+		selLoc=null;
 	}
-	else
+	else if(select == 1 && !selLoc.equals(loc)) //when you click a second time, set selLocDos to the second clicked location
 	{
-		select = 0;
+		selLocDos=loc;
+		swap(selLoc, selLocDos);////if two loc has been selected do swap method
+		select=0;
 	}
 
 
-	if (select == 0)
+	else if (select == 0)
 	{
 		select = 1;
 		selLoc = loc;
 	}
 
+
         parentFrame.repaint();
     }
+    private void swap(Location l, Location l2){
+    	Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
+	     Candy a = (Candy) gr.get(l);
+	Candy b = (Candy) gr.get(l2);
+	a.fullswitch(b);
+
+    }
+
+
 
     /**
      * Edits the contents of the current location, by displaying the constructor
