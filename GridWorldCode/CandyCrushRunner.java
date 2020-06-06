@@ -1,5 +1,6 @@
 import info.gridworld.actor.*;
 import info.gridworld.grid.*;
+import info.gridworld.world.*;
 import java.awt.Color;
 //check imports
 public class CandyCrushRunner
