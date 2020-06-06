@@ -9,7 +9,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
   public void fillWorld()//needs to detect for combos
   {
-    int restart=true;
+    boolean restart=true;
     Grid<Actor> gr = getGrid();
     int rows = gr.getNumRows();
     int cols = gr.getNumCols();
