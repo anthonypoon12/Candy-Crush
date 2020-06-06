@@ -19,7 +19,7 @@
 package info.gridworld.gui;
 
 import info.gridworld.grid.*;
-import info.gridworld.world.World;
+import info.gridworld.world.*;
 import info.gridworld.actor.*;
 
 import java.awt.Dimension;
@@ -363,16 +363,10 @@ public class GUIController<T>
     }
     private void swap(Location l, Location l2){
     	Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
-	Actor a = (Actor) gr.get(l);
-	Actor b = (Actor) gr.get(l2);
-	ArrayList<Location> savedlocs = new ArrayList<Location>();
-    	savedlocs.add(a.getLocation());
-    	savedlocs.add(b.getLocation());
-    	b.removeSelfFromGrid();
-    	a.removeSelfFromGrid();
-    	b.putSelfInGrid(gr,savedlocs.get(0));
-    	a.putSelfInGrid(gr,savedlocs.get(1));
-	
+	     Candy a = (Candy) gr.get(l);
+	Candy b = (Candy) gr.get(l2);
+	a.fullswitch(b);
+
     }
 
 

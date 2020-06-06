@@ -1,3 +1,4 @@
+package info.gridworld.grid;
 import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
