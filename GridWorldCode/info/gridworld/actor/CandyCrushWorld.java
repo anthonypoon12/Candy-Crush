@@ -7,10 +7,6 @@ import info.gridworld.world.*;
 import info.gridworld.gui.*;
 public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
-  public CandyCrushWorld()//We need to decide dimensions of the grid
-  {
-    //super(new BoundedGrid(9,9));
-  }
   public void fillWorld()//needs to detect for combos
   {
     Grid<Actor> gr = getGrid();
@@ -31,8 +27,34 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
         {
           add(emptyloc, randomCandy());
         }
+        ArrayList<Location> allLocs = new ArrayList<Location>(); //from here down is new
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+            {
+                Location loc = new Location(i, j);
+                if (gr.isValid(loc))
+                {
+                  allLocs.add(loc);
+                  if (gr.get(loc) instanceof Candy)
+                  {
+                  Candy candy = (Candy)gr.get(loc);
+                  gridDetect(candy);
+                  }
+                }
+            }
     }
   }
+  public void gridDetect(Candy candy)
+  {
+    ArrayList<Location> combolist;
+    ArrayList<Location> combolist2;
+    combolist = candy.detect();
+    if (combolist.size()>=3)
+    {
+      candy.destroy(combolist);
+    }
+  }
+
   public Candy randomCandy()//returns a random candy
   {
     int x =(int)(Math.random()*6);
