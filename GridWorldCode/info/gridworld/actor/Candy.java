@@ -345,6 +345,32 @@ public class Candy extends Actor
       gr.remove(l);
     }
   }
+  public void destroy2(ArrayList<Location> list)
+  {
+    boolean striped = false;
+    boolean wrapped = false;
+    boolean bombed = false;
+    Grid<Actor> gr = getGrid();
+    for (Location l: list)
+    {
+      if (gr.get(l) instanceof Striped)
+      {
+        striped=true;
+        if (((Striped)gr.get(l)).isHorizontal())
+        {
+          for (int x=0; x<gr.getNumCols();x++)
+            gr.get(new Location(getLocation().getRow(),x)).removeSelfFromGrid();
+        }
+        else
+        {
+          for (int x=0; x<gr.getNumRows();x++)
+            gr.get(new Location(x,getLocation().getCol())).removeSelfFromGrid();
+        }
+      }
+    }
+    if ((!striped)||(!wrapped)||(!bombed))
+      destroy(list);
+  }
   public ArrayList<Location> copyOfList(ArrayList<Location> x)
   {
     ArrayList<Location> output = new ArrayList<Location>();
@@ -422,37 +448,54 @@ public class Candy extends Actor
       boolean bombed=false;
       Grid<Actor> gr = getGrid();
       ArrayList<Location> list = detect();
-      destroy(list);
-      if (list.size()==4)
+      if (!isTherePowerup(list))
       {
-        if (candy.getLocation().getRow()==getLocation().getRow())
-          createHorizontalStripe(list.get(0),getType());
-        else
-          createVerticalStripe(list.get(0),getType());
-      }
-      else if(list.size()==5)
-      {
-        int isbomb=0;
-        int isbomb2=0;
-        int dummyrow=list.get(0).getRow();
-        int dummycol=list.get(0).getCol();
-        for (Location l: list)
+        destroy(list);
+        if (list.size()==4)
         {
-          if (l.getRow()==dummyrow)
-            isbomb++;
-          if (l.getCol()==dummycol)
-            isbomb2++;
+          if (candy.getLocation().getRow()==getLocation().getRow())
+            createHorizontalStripe(list.get(0),getType());
+          else
+            createVerticalStripe(list.get(0),getType());
         }
-        if ((isbomb==5)||(isbomb2==5))
+        else if(list.size()==5)
         {
-          bombed=true;
-          ColourBomb cb = new ColourBomb();
-          cb.putSelfInGrid(gr,list.get(0));
+          int isbomb=0;
+          int isbomb2=0;
+          int dummyrow=list.get(0).getRow();
+          int dummycol=list.get(0).getCol();
+          for (Location l: list)
+          {
+            if (l.getRow()==dummyrow)
+              isbomb++;
+            if (l.getCol()==dummycol)
+              isbomb2++;
+          }
+          if ((isbomb==5)||(isbomb2==5))
+          {
+            bombed=true;
+            ColourBomb cb = new ColourBomb();
+            cb.putSelfInGrid(gr,list.get(0));
+          }
+        }
+        if ((list.size()>4)&&(!bombed))
+        {
+          createWrapped(list.get(0),getType());
         }
       }
-      if ((list.size()>4)&&(!bombed))
+      else
       {
-        createWrapped(list.get(0),getType());
+        destroy2(list);
       }
+  }
+  public boolean isTherePowerup(ArrayList<Location> list)
+  {
+    Grid<Actor> gr = getGrid();
+    for (Location l: list)
+    {
+      if ((gr.get(l).getPowerup()!=0)&&(gr.get(l).getPowerup()!=3))
+        return true;
+    }
+    return false;
   }
 }
