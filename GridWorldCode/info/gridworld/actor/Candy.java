@@ -71,7 +71,7 @@ public class Candy extends Actor
       destroy(combolist);
     if (combolist2.size()>=3)
       destroy(combolist2);
-    if ((combolist.size()>=3)&&(combolist2.size()>=3))
+    if ((combolist.size()<3)&&(combolist2.size()<3))
       switchCandy(candy1);
     }
   }
