@@ -53,6 +53,7 @@ public class Candy extends Actor
   public void fullswitch(Candy candy1)
   //switches candy with one next to it, detects if either has combo. If either combolists are larger than 3 elements, candies from that list are destroyed and other candy stays in place. Otherwise, they switch back.
   {
+    int spots = getGrid().getOccupiedLocations().size();
     boolean isnextto = false;
     for (Location l : getGrid().getOccupiedAdjacentLocations(getLocation()))
     {
@@ -64,7 +65,7 @@ public class Candy extends Actor
     switchCandy(candy1);
     DetectDestroyPowerup();
     candy1.DetectDestroyPowerup();
-    if (getRandomEmptyLocation)
+    if (getGrid().getOccupiedLocations().size()==spots)
       switchCandy(candy1);
     }
   }
