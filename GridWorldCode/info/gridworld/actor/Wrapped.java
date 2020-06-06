@@ -1,3 +1,4 @@
+package info.gridworld.actor;
 public class Wrapped extends Candy
 {
   public Wrapped()

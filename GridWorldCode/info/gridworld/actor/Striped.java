@@ -1,3 +1,4 @@
+package info.gridworld.actor;
 public class Striped extends Candy
 {
   private boolean horizontal = false;
