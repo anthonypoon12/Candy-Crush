@@ -53,7 +53,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
     {
       candy.destroy(combolist);
     }
-  }
+  }//up to here
 
   public Candy randomCandy()//returns a random candy
   {
