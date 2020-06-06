@@ -362,10 +362,11 @@ public class GUIController<T>
         parentFrame.repaint();
     }
     private void swap(Location l, Location l2){
-    	Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
-	     Candy a = (Candy) gr.get(l);
-	Candy b = (Candy) gr.get(l2);
-	a.fullswitch(b);
+    	if(gr.get(l)!= null && gr.get(l2)!=null){
+	    Candy a = (Candy) gr.get(l);
+	    Candy b = (Candy) gr.get(l2);
+	    a.fullswitch(b);
+	}
 
     }
 
