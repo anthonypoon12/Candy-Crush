@@ -359,17 +359,14 @@ public class Candy extends Actor
       score += 100;
     }
   }
-
-    public static int getScore()
+  public static int getScore()
   {
     return score;
   }
-
   public static int getTurns()
   {
     return turns;
   }
-
   public ArrayList<Location> copyOfList(ArrayList<Location> x)
   {
     ArrayList<Location> output = new ArrayList<Location>();
@@ -484,7 +481,7 @@ public class Candy extends Actor
       }
       else
       {
-        destroy2(list);
+        //destroy2(list);
       }
   }
   public boolean isTherePowerup(ArrayList<Location> list)
