@@ -437,14 +437,14 @@ public class Candy extends Actor
     {
       for (int x=0; x<gr.getNumCols();x++)
       {
-        (Candy)gr.get(new Location(getLocation().getRow(),x)).setdestroymarker(true);
+        gr.get(new Location(getLocation().getRow(),x)).setdestroymarker(true);
       }
     }
     else
     {
       for (int x=0; x<gr.getNumRows();x++)
       {
-        (Candy)gr.get(new Location(x,getLocation().getCol())).setdestroymarker(true);
+        gr.get(new Location(x,getLocation().getCol())).setdestroymarker(true);
       }
     }
   }
