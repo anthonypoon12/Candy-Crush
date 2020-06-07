@@ -366,9 +366,21 @@ public class Candy extends Actor
     Grid<Actor> gr = getGrid();
     for (Location l: list)
     {
-      gr.remove(l);
-      score += 100;
+      if ((Candy)gr.get(l).getdestroymarker())
+      {
+        gr.remove(l);
+        score += 100;
+      }
     }
+  }
+  public void destroy(Candy candy)
+  {
+    Grid<Actor> gr = getGrid();
+      if (candy.getdestroymarker())
+      {
+        candy.removeSelfFromGrid();
+        score += 100;
+      }
   }
   public static int getScore()
   {
@@ -424,12 +436,16 @@ public class Candy extends Actor
     if (horizontal)
     {
       for (int x=0; x<gr.getNumCols();x++)
-        gr.get(new Location(getLocation().getRow(),x)).removeSelfFromGrid();
+      {
+        (Candy)gr.get(new Location(getLocation().getRow(),x)).setdestroymarker(true);
+      }
     }
     else
     {
       for (int x=0; x<gr.getNumRows();x++)
-        gr.get(new Location(x,getLocation().getCol())).removeSelfFromGrid();
+      {
+        (Candy)gr.get(new Location(x,getLocation().getCol())).setdestroymarker(true);
+      }
     }
   }
   public void wrappedEliminate()
@@ -439,7 +455,7 @@ public class Candy extends Actor
   {
     tobeDestroyed=value;
   }
-  public boolean setdestroymarker()
+  public boolean getdestroymarker()
   {
     return tobeDestroyed;
   }
