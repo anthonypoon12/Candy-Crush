@@ -439,7 +439,6 @@ public class Candy extends Actor
   {
     tobeDestroyed=value;
   }
-  }
   public boolean setdestroymarker()
   {
     return tobeDestroyed;
