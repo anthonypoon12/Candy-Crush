@@ -55,9 +55,9 @@ public class Candy extends Actor
   {
     int spots = getGrid().getOccupiedLocations().size();
     boolean isnextto = false;
-    for (Location l : getGrid().getOccupiedAdjacentLocations(getLocation()))
+    for (int x = 0; x<=360; x+=90)
     {
-      if (candy1.getLocation().equals(l))
+      if (candy1.getLocation().equals(getLocation().getAdjacentLocation(x)))
         isnextto=true;
     }
     if (isnextto)
