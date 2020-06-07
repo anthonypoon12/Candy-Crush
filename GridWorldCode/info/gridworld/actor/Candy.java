@@ -278,7 +278,7 @@ public class Candy extends Actor
       newcandy= new YellowCandy();
     newcandy.putSelfInGrid(gr,x);
   }
-  public void createHorizontalStripe(Location x, int number)
+  public Candy createHorizontalStripe()//returns a Horizontal striped candy of same type
   {
     Grid<Actor> gr = getGrid();
     Candy newcandy=null;
@@ -294,9 +294,9 @@ public class Candy extends Actor
       newcandy= new RedCandyStripedHor();
     if (number==6)
       newcandy= new YellowCandyStripedHor();
-    newcandy.putSelfInGrid(gr,x);
+    return newcandy;
   }
-  public void createVerticalStripe(Location x, int number)
+  public Candy createVerticalStripe()// returns a vertical striped candy of same type
   {
     Grid<Actor> gr = getGrid();
     Candy newcandy=null;
@@ -312,9 +312,9 @@ public class Candy extends Actor
       newcandy= new RedCandyStripedVert();
     if (number==6)
       newcandy= new YellowCandyStripedVert();
-    newcandy.putSelfInGrid(gr,x);
+    return newcandy;
   }
-  public void createWrapped(Location x, int number)
+  public Candy createWrapped()// creates wrapped candy of same type
   {
     Grid<Actor> gr = getGrid();
     Candy newcandy=null;
@@ -330,7 +330,7 @@ public class Candy extends Actor
       newcandy= new RedCandyWrapped();
     if (number==6)
       newcandy= new YellowCandyWrapped();
-    newcandy.putSelfInGrid(gr,x);
+    return newcandy;
   }
   public Candy createSameType()
   //returns a new candy of the same type
@@ -359,7 +359,7 @@ public class Candy extends Actor
       score += 100;
     }
   }
-  public static int getScore()
+    public static int getScore()
   {
     return score;
   }
@@ -376,12 +376,7 @@ public class Candy extends Actor
     }
     return output;
   }
-  public void DetectandDestroy()
-  {
-    ArrayList<Location> list = detect();
-    destroy(list);
-  }
-  public void changeTypeCandy(int num)
+  public void changeTypeCandy(int num)//moves candy of certain type to this location
   {
     Grid<Actor> gr = getGrid();
     Location loc = getLocation();
@@ -400,89 +395,6 @@ public class Candy extends Actor
       newcandy= new YellowCandy();
     removeSelfFromGrid();
     newcandy.putSelfInGrid(gr,loc);
-  }
-  public void DetectDestroyPowerup()//used to detect combos, destroy, and form powerups NOT for when candies switch but for cleanup
-  {
-      boolean bombed=false;
-      Grid<Actor> gr = getGrid();
-      ArrayList<Location> list = detect();
-      destroy(list);
-      if (list.size()==4)
-      {
-        if (list.get(0).getRow()==list.get(1).getRow())
-          createHorizontalStripe(list.get(0),getType());
-        else
-          createVerticalStripe(list.get(0),getType());
-      }
-      else if(list.size()==5)
-      {
-        int isbomb=0;
-        int isbomb2=0;
-        int dummyrow=list.get(0).getRow();
-        int dummycol=list.get(0).getCol();
-        for (Location l: list)
-        {
-          if (l.getRow()==dummyrow)
-            isbomb++;
-          if (l.getCol()==dummycol)
-            isbomb2++;
-        }
-        if ((isbomb==5)||(isbomb2==5))
-        {
-          bombed=true;
-          ColourBomb cb = new ColourBomb();
-          cb.putSelfInGrid(gr,list.get(0));
-        }
-      }
-      if ((list.size()>4)&&(!bombed))
-      {
-        createWrapped(list.get(0),getType());
-      }
-  }
-  public void DetectDestroyPowerup(Candy candy)//used to detect combos, destroy, and form powerups for when candies switch
-  {
-      boolean bombed=false;
-      Grid<Actor> gr = getGrid();
-      ArrayList<Location> list = detect();
-      if (!isTherePowerup(list))
-      {
-        destroy(list);
-        if (list.size()==4)
-        {
-          if (candy.getLocation().getRow()==getLocation().getRow())
-            createHorizontalStripe(list.get(0),getType());
-          else
-            createVerticalStripe(list.get(0),getType());
-        }
-        else if(list.size()==5)
-        {
-          int isbomb=0;
-          int isbomb2=0;
-          int dummyrow=list.get(0).getRow();
-          int dummycol=list.get(0).getCol();
-          for (Location l: list)
-          {
-            if (l.getRow()==dummyrow)
-              isbomb++;
-            if (l.getCol()==dummycol)
-              isbomb2++;
-          }
-          if ((isbomb==5)||(isbomb2==5))
-          {
-            bombed=true;
-            ColourBomb cb = new ColourBomb();
-            cb.putSelfInGrid(gr,list.get(0));
-          }
-        }
-        if ((list.size()>4)&&(!bombed))
-        {
-          createWrapped(list.get(0),getType());
-        }
-      }
-      else
-      {
-        //destroy2(list);
-      }
   }
   public boolean isTherePowerup(ArrayList<Location> list)
   {
