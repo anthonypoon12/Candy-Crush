@@ -20,7 +20,7 @@ public class Candy extends Actor
     ArrayList<Location> combolist = partofdetect();
     for (Location l: combolist)
     {
-      destroymarker(true);
+      setdestroymarker(true);
     }
     return combolist;
   }
