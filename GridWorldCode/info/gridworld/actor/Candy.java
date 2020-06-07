@@ -22,6 +22,7 @@ public class Candy extends Actor
     {
       destroymarker(true);
     }
+    return combolist;
   }
   public ArrayList<Location> partofdetect()
   //returns an arraylist of all locations of candies in a possible combination
