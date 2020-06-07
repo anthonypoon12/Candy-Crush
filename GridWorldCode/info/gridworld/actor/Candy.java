@@ -366,7 +366,7 @@ public class Candy extends Actor
     Grid<Actor> gr = getGrid();
     for (Location l: list)
     {
-      if ((Candy)gr.get(l).getdestroymarker())
+      if (((Candy)gr.get(l)).getdestroymarker())
       {
         gr.remove(l);
         score += 100;
