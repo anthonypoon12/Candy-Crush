@@ -264,17 +264,17 @@ public class Candy extends Actor
   {
     Grid<Actor> gr = getGrid();
     Candy newcandy=null;
-    if (number==1)
+    if (getType()==1)
       newcandy= new BlueCandy();
-    if (number==2)
+    if (getType()==2)
       newcandy= new GreenCandy();
-    if (number==3)
+    if (getType()==3)
       newcandy= new OrangeCandy();
-    if (number==4)
+    if (getType()==4)
       newcandy= new PurpleCandy();
-    if (number==5)
+    if (getType()==5)
       newcandy= new RedCandy();
-    if (number==6)
+    if (getType()==6)
       newcandy= new YellowCandy();
     newcandy.putSelfInGrid(gr,x);
   }
@@ -282,17 +282,17 @@ public class Candy extends Actor
   {
     Grid<Actor> gr = getGrid();
     Candy newcandy=null;
-    if (number==1)
+    if (getType()==1)
       newcandy= new BlueCandyStripedHor();
-    if (number==2)
+    if (getType()==2)
       newcandy= new GreenCandyStripedHor();
-    if (number==3)
+    if (getType()==3)
       newcandy= new OrangeCandyStripedHor();
-    if (number==4)
+    if (getType()==4)
       newcandy= new PurpleCandyStripedHor();
-    if (number==5)
+    if (getType()==5)
       newcandy= new RedCandyStripedHor();
-    if (number==6)
+    if (getType()==6)
       newcandy= new YellowCandyStripedHor();
     return newcandy;
   }
@@ -300,17 +300,17 @@ public class Candy extends Actor
   {
     Grid<Actor> gr = getGrid();
     Candy newcandy=null;
-    if (number==1)
+    if (getType()==1)
       newcandy= new BlueCandyStripedVert();
-    if (number==2)
+    if (getType()==2)
       newcandy= new GreenCandyStripedVert();
-    if (number==3)
+    if (getType()==3)
       newcandy= new OrangeCandyStripedVert();
-    if (number==4)
+    if (getType()==4)
       newcandy= new PurpleCandyStripedVert();
-    if (number==5)
+    if (getType()==5)
       newcandy= new RedCandyStripedVert();
-    if (number==6)
+    if (getType()==6)
       newcandy= new YellowCandyStripedVert();
     return newcandy;
   }
@@ -318,17 +318,17 @@ public class Candy extends Actor
   {
     Grid<Actor> gr = getGrid();
     Candy newcandy=null;
-    if (number==1)
+    if (getType()==1)
       newcandy= new BlueCandyWrapped();
-    if (number==2)
+    if (getType()==2)
       newcandy= new GreenCandyWrapped();
-    if (number==3)
+    if (getType()==3)
       newcandy= new OrangeCandyWrapped();
-    if (number==4)
+    if (getType()==4)
       newcandy= new PurpleCandyWrapped();
-    if (number==5)
+    if (getType()==5)
       newcandy= new RedCandyWrapped();
-    if (number==6)
+    if (getType()==6)
       newcandy= new YellowCandyWrapped();
     return newcandy;
   }
