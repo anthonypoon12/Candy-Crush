@@ -435,8 +435,13 @@ public class Candy extends Actor
   public void wrappedEliminate()
   {
   }
-  public void destroymarker(boolean value)
+  public void setdestroymarker(boolean value)
   {
     tobeDestroyed=value;
+  }
+  }
+  public boolean setdestroymarker()
+  {
+    return tobeDestroyed;
   }
 }
