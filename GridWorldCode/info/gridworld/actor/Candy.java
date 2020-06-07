@@ -396,14 +396,29 @@ public class Candy extends Actor
     removeSelfFromGrid();
     newcandy.putSelfInGrid(gr,loc);
   }
-  public boolean isTherePowerup(ArrayList<Location> list)
+  public int isTherePowerup(ArrayList<Location> list)// returns if there is a powerup in this list
   {
     Grid<Actor> gr = getGrid();
+    int output = 0;
     for (Location l: list)
     {
       if ((gr.get(l).getPowerup()!=0)&&(gr.get(l).getPowerup()!=3))
-        return true;
+        output++;
     }
-    return false;
+    return output;
+  }
+  public void stripedEliminate(boolean horizontal)
+  {
+    Grid<Actor> gr = getGrid();
+    if (horizontal)
+    {
+      for (int x=0; x<gr.getNumCols();x++)
+        gr.get(new Location(getLocation().getRow(),x)).removeSelfFromGrid();
+    }
+    else
+    {
+      for (int x=0; x<gr.getNumRows();x++)
+        gr.get(new Location(x,getLocation().getCol())).removeSelfFromGrid();
+    }
   }
 }
