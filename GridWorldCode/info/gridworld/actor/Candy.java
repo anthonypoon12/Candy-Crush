@@ -8,12 +8,22 @@ public class Candy extends Actor
 {
   public static int score;
   public static int turns;
+  private boolean tobeDestroyed=false;
 
   public Candy()
   {
     super();
   }
   public ArrayList<Location> detect()
+  //returns an arraylist of all locations of candies in a possible combination
+  {
+    ArrayList<Location> combolist = partofdetect();
+    for (Location l: combolist)
+    {
+      destroymarker(true);
+    }
+  }
+  public ArrayList<Location> partofdetect()
   //returns an arraylist of all locations of candies in a possible combination
   {
     ArrayList<Location> combolist = new ArrayList<Location>();
@@ -359,7 +369,7 @@ public class Candy extends Actor
       score += 100;
     }
   }
-    public static int getScore()
+  public static int getScore()
   {
     return score;
   }
@@ -420,5 +430,12 @@ public class Candy extends Actor
       for (int x=0; x<gr.getNumRows();x++)
         gr.get(new Location(x,getLocation().getCol())).removeSelfFromGrid();
     }
+  }
+  public void wrappedEliminate()
+  {
+  }
+  public void destroymarker(boolean value)
+  {
+    tobeDestroyed=value;
   }
 }
