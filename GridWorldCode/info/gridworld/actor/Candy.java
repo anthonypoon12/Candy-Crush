@@ -20,7 +20,7 @@ public class Candy extends Actor
     ArrayList<Location> combolist = partofdetect();
     for (Location l: combolist)
     {
-      setdestroymarker(true);
+      destroymarker(true);
     }
     return combolist;
   }
@@ -366,20 +366,8 @@ public class Candy extends Actor
     Grid<Actor> gr = getGrid();
     for (Location l: list)
     {
-      if ((Candy)gr.get(l).getdestroymarker())
-      {
-        gr.remove(l);
-        score += 100;
-      }
-    }
-  }
-  public void destroy(Candy candy)
-  {
-      if (candy.getdestroymarker())
-      {
-        candy.removeSelfFromGrid();
-        score += 100;
-      }
+      gr.remove(l);
+      score += 100;
     }
   }
   public static int getScore()
@@ -436,29 +424,19 @@ public class Candy extends Actor
     if (horizontal)
     {
       for (int x=0; x<gr.getNumCols();x++)
-      {
-        (Candy)gr.get(new Location(getLocation().getRow(),x)).setdestroymarker(true);
-        destroy((Candy)gr.get(new Location(getLocation().getRow(),x)));
-      }
+        gr.get(new Location(getLocation().getRow(),x)).removeSelfFromGrid();
     }
     else
     {
       for (int x=0; x<gr.getNumRows();x++)
-      {
-        (Candy)gr.get(new Location(x,getLocation().getCol())).setdestroymarker(true);
-        destroy((Candy)gr.get(new Location(x,getLocation().getCol())));
-      }
+        gr.get(new Location(x,getLocation().getCol())).removeSelfFromGrid();
     }
   }
   public void wrappedEliminate()
   {
   }
-  public void setdestroymarker(boolean value)
+  public void destroymarker(boolean value)
   {
     tobeDestroyed=value;
-  }
-  public boolean getdestroymarker()
-  {
-    return tobeDestroyed;
   }
 }
