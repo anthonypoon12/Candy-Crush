@@ -345,7 +345,7 @@ public class Candy extends Actor
       gr.remove(l);
     }
   }
-  public void destroy2(ArrayList<Location> list)
+  public void destroy2(ArrayList<Location> list)//destroy for striped
   {
     boolean striped = false;
     boolean wrapped = false;
