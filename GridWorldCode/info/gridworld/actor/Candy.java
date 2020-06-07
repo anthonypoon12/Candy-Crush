@@ -6,6 +6,9 @@ import info.gridworld.grid.*;
 public class Candy extends Actor
 //add "not contain in grid" parts
 {
+  public static int score;
+  public static int turns;
+
   public Candy()
   {
     super();
@@ -63,10 +66,20 @@ public class Candy extends Actor
     if (isnextto)
     {
     switchCandy(candy1);
-    DetectDestroyPowerup(candy1);
-    candy1.DetectDestroyPowerup(this);
-    if (getGrid().getOccupiedLocations().size()==spots)
+    turns ++;
+    ArrayList<Location> combolist;
+    ArrayList<Location> combolist2;
+    combolist = detect();
+    combolist2 = candy1.detect();
+    if (combolist.size()>=3)
+      destroy(combolist);
+    if (combolist2.size()>=3)
+      destroy(combolist2);
+    if ((combolist.size()<3)&&(combolist2.size()<3))
+    {
       switchCandy(candy1);
+      turns --;
+    }
     }
   }
   public void switchCandy(Candy candy)
@@ -343,34 +356,20 @@ public class Candy extends Actor
     for (Location l: list)
     {
       gr.remove(l);
+      score += 100;
     }
   }
-  public void destroy2(ArrayList<Location> list)//destroy for striped
+
+    public static int getScore()
   {
-    boolean striped = false;
-    boolean wrapped = false;
-    boolean bombed = false;
-    Grid<Actor> gr = getGrid();
-    for (Location l: list)
-    {
-      if (gr.get(l) instanceof Striped)
-      {
-        striped=true;
-        if (((Striped)gr.get(l)).isHorizontal())
-        {
-          for (int x=0; x<gr.getNumCols();x++)
-            gr.get(new Location(getLocation().getRow(),x)).removeSelfFromGrid();
-        }
-        else
-        {
-          for (int x=0; x<gr.getNumRows();x++)
-            gr.get(new Location(x,getLocation().getCol())).removeSelfFromGrid();
-        }
-      }
-    }
-    if ((!striped)||(!wrapped)||(!bombed))
-      destroy(list);
+    return score;
   }
+
+  public static int getTurns()
+  {
+    return turns;
+  }
+
   public ArrayList<Location> copyOfList(ArrayList<Location> x)
   {
     ArrayList<Location> output = new ArrayList<Location>();
