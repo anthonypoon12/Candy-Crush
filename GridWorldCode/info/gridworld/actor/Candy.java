@@ -374,7 +374,7 @@ public class Candy extends Actor
     candy.removeSelfFromGrid();
     score += 100;
   }
-  public void destroy(Candy candy)//destroy for colorbomb
+  public void destroy(Candy candy)//destroy for colorbomb //account for wraps and bomb itself
   {
     Grid<Actor> gr = getGrid();
     candy.removeSelfFromGrid();
@@ -474,5 +474,6 @@ public class Candy extends Actor
       if (gr.get(l).getType()==candy.getType())
         destroy((Candy)gr.get(l));
     }
+    destroy(this);
   }
 }
