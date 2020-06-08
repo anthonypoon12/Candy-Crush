@@ -39,9 +39,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.*;
 
-import java.util.concurrent.TimeUnit;
-
-
 /**
  * The GUIController controls the behavior in a WorldFrame. <br />
  * This code is not tested on the AP CS A and AB exams. It contains GUI
@@ -73,6 +70,7 @@ public class GUIController<T>
 	private Location selLoc;
 	private int selectDos;       //sees if selLocDos has been given a location
 	private Location selLocDos; //holds second location for swapping
+
     /**
      * Creates a new controller tied to the specified display and gui
      * frame.
@@ -119,18 +117,7 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
-              Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
-              CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
-              int spots = gr.getNumCols()*gr.getNumRows();
-              if (gr.getOccupiedLocations().size()<spots)
-              {
-                parentFrame.repaint();
-                world.Gravity();
-                world.refill();
-                System.out.println(gr.getOccupiedLocations().size());
-              }
-              else
-                timer.stop();
+                step();
             }
         });
 
@@ -376,43 +363,14 @@ public class GUIController<T>
     }
     private void swap(Location l, Location l2){
     Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
-    CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
-    int spots = gr.getNumCols()*gr.getNumRows();
     	if(gr.get(l)!= null && gr.get(l2)!=null){
 	    Candy a = (Candy) gr.get(l);
 	    Candy b = (Candy) gr.get(l2);
 	    a.fullswitch(b);
 	}
-	 timer.start();
+
     }
-    private void swap2(Location l, Location l2){
-    Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
-    CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
-    int spots = gr.getNumCols()*gr.getNumRows();
-    	if(gr.get(l)!= null && gr.get(l2)!=null){
-	    Candy a = (Candy) gr.get(l);
-	    Candy b = (Candy) gr.get(l2);
-	    a.fullswitch(b);
-	}
-	 while(gr.getOccupiedLocations().size()<spots){
-   parentFrame.repaint();
-     waittime(1);
-	    world.Gravity();
-	    world.refill();
-      System.out.println(gr.getOccupiedLocations().size());
-	   }
-    }
-    public void waittime(double x)
-    {
-      try
-      {
-	     TimeUnit.SECONDS.sleep((long) x);
-      }
-      catch(InterruptedException e)//ngl i have no idea what this does
-      {
-        System.out.println(e);
-      }
-    }
+
 
 
     /**
