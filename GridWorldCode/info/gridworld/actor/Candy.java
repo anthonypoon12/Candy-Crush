@@ -411,7 +411,7 @@ public class Candy extends Actor
     removeSelfFromGrid();
     newcandy.putSelfInGrid(gr,loc);
   }
-  public ArrayList<Candy> isTherePowerup(ArrayList<Location> list)// returns if there is a powerup in this list
+  public ArrayList<Candy> isTherePowerup(ArrayList<Location> list)// returns list of powerups in combo
   {
     Grid<Actor> gr = getGrid();
     ArrayList<Candy> output = new ArrayList<Candy>();
