@@ -435,10 +435,9 @@ public class Candy extends Actor
   {
     Candy dummy;
     Grid<Actor> gr = getGrid();
-    for (Location l: gr.getNeighbors(getLocation()))
+    for (Candy c: gr.getNeighbors(getLocation()))
     {
-      if ((gr.isValid(l))&&(gr.get(l)!=null))
-        destroy((Candy)gr.get(l),getType());
+      destroy(c,getType());
     }
     if(getPowerup()==2)
     {
