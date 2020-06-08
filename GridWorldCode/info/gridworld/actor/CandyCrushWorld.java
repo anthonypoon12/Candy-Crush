@@ -15,7 +15,6 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
     int cols = gr.getNumCols();
     if (rows > 0 && cols > 0) // bounded grid
     {
-        ArrayList<Location> allLocs = new ArrayList<Location>(); //from here down is new
         while (restart)
         {
           // get all valid empty locations (Copied from World.java in the getRandomEmptyLocation())
@@ -31,26 +30,34 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
             {
               add(emptyloc, randomCandy());
             }
-          for (int i = 0; i < rows; i++)
-            for (int j = 2-(i%3); j < cols; j+=3)
-            {
-              Location loc = new Location(i, j);
-              if (gr.isValid(loc))
-              {
-                allLocs.add(loc);
-                if (gr.get(loc) instanceof Candy)
-                {
-                  Candy candy = (Candy)gr.get(loc);
-                  gridDetect(candy);
-                }
-              }
-            }
+            gridDetect();
             if (getRandomEmptyLocation()==null)
               restart=false;
         }
     }
   }
-  public void gridDetect(Candy candy)
+  public void gridDetect()
+  {
+    boolean stop=false;
+    Grid<Actor> gr = getGrid();
+    int rows = gr.getNumRows();
+    int cols = gr.getNumCols();
+    for (int i = 0; (i < rows)&&(!stop); i++)
+      for (int j = 2-(i%3); (j < cols)&&(!stop); j+=3)
+      {
+        Location loc = new Location(i, j);
+        if (gr.isValid(loc))
+        {
+          if (gr.get(loc) instanceof Candy)
+          {
+            Candy candy = (Candy)gr.get(loc);
+            gridDetect2(candy);
+            stop=true;
+          }
+        }
+      }
+  }
+  public void gridDetect2(Candy candy)
   {
     ArrayList<Location> combolist;
     combolist = candy.detect();
