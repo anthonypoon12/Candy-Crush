@@ -96,4 +96,14 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
         a.moveTo(next);
     }
   }
+    public void refill(){  //only refills the top row
+      Grid<Actor> g = getGrid();
+      for(int j = 0; j < g.getNumCols(); j++){
+	  Location filling= new Location(0, j);
+	  Candy creating= randomCandy();
+	  if(g.isValid(filling) && g.get(filling)==null)
+	      creating.putSelfInGrid(g,filling);
+      }
+    }
+	
 }
