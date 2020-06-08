@@ -39,6 +39,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.*;
 
+import java.util.concurrent.TimeUnit;
+
+
 /**
  * The GUIController controls the behavior in a WorldFrame. <br />
  * This code is not tested on the AP CS A and AB exams. It contains GUI
@@ -70,7 +73,6 @@ public class GUIController<T>
 	private Location selLoc;
 	private int selectDos;       //sees if selLocDos has been given a location
 	private Location selLocDos; //holds second location for swapping
-
     /**
      * Creates a new controller tied to the specified display and gui
      * frame.
@@ -368,6 +370,12 @@ public class GUIController<T>
 	    Candy b = (Candy) gr.get(l2);
 	    a.fullswitch(b);
 	}
+	for(int i =0; i<gr.getNumRows(); i++){
+	    gr.Gravity();
+	    gr.refill();
+	    TimeUnit.SECONDS.sleep(1);
+	}
+	    
 
     }
 
