@@ -476,4 +476,29 @@ public class Candy extends Actor
     }
     destroy(this);
   }
+  public boolean powerswitch(Candy candy)//checks to see if they are 2 powerups OR one of them is color bomb
+  {
+    boolean output=false;
+    if ((this instanceof ColourBomb)||(candy instanceof ColourBomb))
+    {
+      output=true;
+    }
+    else if ((this instanceof Striped)&&(candy instanceof Striped))
+    {
+      output=true;
+    }
+    else if ((this instanceof Striped)&&(candy instanceof Wrapped))
+    {
+      output=true;
+    }
+    else if ((this instanceof Wrapped)&&(candy instanceof Striped))
+    {
+      output=true;
+    }
+    else if ((this instanceof Wrapped)&&(candy instanceof Wrapped))
+    {
+      output=true;
+    }
+    return output;
+  }
 }
