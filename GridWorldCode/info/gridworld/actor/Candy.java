@@ -374,6 +374,12 @@ public class Candy extends Actor
     candy.removeSelfFromGrid();
     score += 100;
   }
+  public void destroy(Candy candy)//destroy for colorbomb
+  {
+    Grid<Actor> gr = getGrid();
+    candy.removeSelfFromGrid();
+    score += 100;
+  }
   public static int getScore()
   {
     return score;
@@ -459,5 +465,14 @@ public class Candy extends Actor
     }
     else
       removeSelfFromGrid();
+  }
+  public void colorbombing(Candy candy)
+  {
+    Grid<Actor> gr = getGrid();
+    for (Location l: gr.getOccupiedLocations())
+    {
+      if (gr.get(l).getType()==candy.getType())
+        destroy((Candy)gr.get(l));
+    }
   }
 }
