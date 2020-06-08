@@ -119,6 +119,7 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
+              parentFrame.repaint();
               Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
               CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
               int spots = gr.getNumCols()*gr.getNumRows();
@@ -130,7 +131,13 @@ public class GUIController<T>
                 System.out.println(gr.getOccupiedLocations().size());
               }
               else
-                timer.stop();
+              {
+                world.gridDetect();
+                if (world.getRandomEmptyLocation()==null)
+                {
+                  timer.stop();
+                }
+              }
             }
         });
 
