@@ -413,7 +413,7 @@ public class Candy extends Actor
     }
     return output;
   }
-  public void stripedEliminate(boolean horizontal)
+  public void stripedEliminate(boolean horizontal)// part of destroying for striped candies
   {
     Grid<Actor> gr = getGrid();
     if (horizontal)
@@ -431,8 +431,20 @@ public class Candy extends Actor
       }
     }
   }
-  public void wrappedEliminate()
+  public void wrappedEliminate()// part of destroying for wrapped candies
   {
-
+    Candy dummy;
+    Grid<Actor> gr = getGrid();
+    for (Location l: gr.getNeighbors(getLocation()))
+    {
+      if ((gr.isValid(l))&&(gr.get(l)!=null))
+        destroy((Candy)gr.get(l),getType());
+    }
+    if(getPowerup()==2)
+    {
+      dummy = createSameType();
+      removeSelfFromGrid();
+      dummy.wrappedEliminate();
+    }
   }
 }
