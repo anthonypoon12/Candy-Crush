@@ -466,7 +466,7 @@ public class Candy extends Actor
     else
       removeSelfFromGrid();
   }
-  public void colorbombing(Candy candy)
+  public void colorbombing(Candy candy)//part of destroying for color bombs. parameter is the candy bomb switches with.
   {
     Grid<Actor> gr = getGrid();
     for (Location l: gr.getOccupiedLocations())
