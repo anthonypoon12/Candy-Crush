@@ -435,5 +435,4 @@ public class Candy extends Actor
   {
 
   }
-  public void
 }
