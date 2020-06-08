@@ -372,10 +372,19 @@ public class GUIController<T>
 	    Candy b = (Candy) gr.get(l2);
 	    a.fullswitch(b);
 	}
-	while(gr.getOccupiedLocations().size()<spots){
+	 while(gr.getOccupiedLocations().size()<spots){
+     parentFrame.repaint();
 	    world.Gravity();
 	    world.refill();
-	    TimeUnit.SECONDS.sleep(1);
+      System.out.println(gr.getOccupiedLocations().size());
+      try
+      {
+	     TimeUnit.SECONDS.sleep(1);
+      }
+      catch(InterruptedException e)//ngl i have no idea what this does
+      {
+        System.out.println(e);
+      }
 	}
 
 

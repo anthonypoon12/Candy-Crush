@@ -81,7 +81,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
     Grid<Actor> g = getGrid();
     Actor obj;
     ArrayList<Actor> sorted = new ArrayList<Actor>();
-    for(int i = g.getNumRows()-1; i >0; i--){
+    for(int i = g.getNumRows()-1; i >=0; i--){
       for(int j = 0; j < g.getNumCols(); j++){
         obj = g.get(new Location(i, j));
         if(obj != null)
@@ -105,5 +105,5 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 	      creating.putSelfInGrid(g,filling);
       }
     }
-	
+
 }
