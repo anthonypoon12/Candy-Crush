@@ -8,23 +8,12 @@ public class Candy extends Actor
 {
   public static int score;
   public static int turns;
-  private boolean tobeDestroyed=false;
 
   public Candy()
   {
     super();
   }
   public ArrayList<Location> detect()
-  //returns an arraylist of all locations of candies in a possible combination
-  {
-    ArrayList<Location> combolist = partofdetect();
-    for (Location l: combolist)
-    {
-      destroymarker(true);
-    }
-    return combolist;
-  }
-  public ArrayList<Location> partofdetect()
   //returns an arraylist of all locations of candies in a possible combination
   {
     ArrayList<Location> combolist = new ArrayList<Location>();
@@ -366,21 +355,15 @@ public class Candy extends Actor
     Grid<Actor> gr = getGrid();
     for (Location l: list)
     {
-      if ((Candy)gr.get(l).getdestroymarker())
-      {
-        gr.remove(l);
-        score += 100;
-      }
+      gr.remove(l);
+      score += 100;
     }
   }
   public void destroy(Candy candy)
   {
     Grid<Actor> gr = getGrid();
-      if (candy.getdestroymarker())
-      {
-        candy.removeSelfFromGrid();
-        score += 100;
-      }
+      candy.removeSelfFromGrid();
+      score += 100;
   }
   public static int getScore()
   {
@@ -437,7 +420,6 @@ public class Candy extends Actor
     {
       for (int x=0; x<gr.getNumCols();x++)
       {
-        ((Candy)gr.get(new Location(getLocation().getRow(),x))).setdestroymarker(true);
         destroy((Candy)gr.get(new Location(getLocation().getRow(),x)));
       }
     }
@@ -445,7 +427,6 @@ public class Candy extends Actor
     {
       for (int x=0; x<gr.getNumRows();x++)
       {
-        ((Candy)gr.get(new Location(x,getLocation().getCol()))).setdestroymarker(true);
         destroy((Candy)gr.get(new Location(x,getLocation().getCol())));
       }
     }
@@ -454,12 +435,5 @@ public class Candy extends Actor
   {
 
   }
-  public void setdestroymarker(boolean value)
-  {
-    tobeDestroyed=value;
-  }
-  public boolean getdestroymarker()
-  {
-    return tobeDestroyed;
-  }
+  public void
 }
