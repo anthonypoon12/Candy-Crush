@@ -52,7 +52,8 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
           {
             Candy candy = (Candy)gr.get(loc);
             gridDetect2(candy);
-            stop=true;
+            if (getRandomEmptyLocation()!=null)
+              stop=true;
           }
         }
       }
