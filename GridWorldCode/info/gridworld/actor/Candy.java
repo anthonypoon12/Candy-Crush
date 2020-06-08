@@ -359,11 +359,20 @@ public class Candy extends Actor
       score += 100;
     }
   }
+  public void basicdestroy(ArrayList<Location> list)//destroy if there r no powerups
+  {
+    Grid<Actor> gr = getGrid();
+    for (Location l: list)
+    {
+      gr.remove(l);
+      score += 100;
+    }
+  }
   public void destroy(Candy candy,int type)//destroy for powerups
   {
     Grid<Actor> gr = getGrid();
-      candy.removeSelfFromGrid();
-      score += 100;
+    candy.removeSelfFromGrid();
+    score += 100;
   }
   public static int getScore()
   {
@@ -405,11 +414,11 @@ public class Candy extends Actor
   public int isTherePowerup(ArrayList<Location> list)// returns if there is a powerup in this list
   {
     Grid<Actor> gr = getGrid();
-    int output = 0;
+    ArrayList<Candy> output = new ArrayList<Candy>();
     for (Location l: list)
     {
       if ((gr.get(l).getPowerup()!=0)&&(gr.get(l).getPowerup()!=3))
-        output++;
+        output.add(gr.get(l));
     }
     return output;
   }
