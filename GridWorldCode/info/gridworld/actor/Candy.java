@@ -455,7 +455,9 @@ public class Candy extends Actor
       removeSelfFromGrid();
       dummy.putSelfInGrid(gr,loc);
       dummy.wrappedsecond=true;
-      dummy.wrappedEliminate();
+      //dummy.wrappedEliminate();
     }
+    else
+      removeSelfFromGrid();
   }
 }
