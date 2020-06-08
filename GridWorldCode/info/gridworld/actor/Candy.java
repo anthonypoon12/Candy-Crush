@@ -8,7 +8,7 @@ public class Candy extends Actor
 {
   public static int score;
   public static int turns;
-
+  public boolean wrappedsecond=false;
   public Candy()
   {
     super();
@@ -452,6 +452,7 @@ public class Candy extends Actor
     {
       dummy = createSameType();
       removeSelfFromGrid();
+      dummy.wrappedsecond=true;
       dummy.wrappedEliminate();
     }
   }
