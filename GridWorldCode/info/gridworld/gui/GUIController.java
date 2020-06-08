@@ -373,23 +373,24 @@ public class GUIController<T>
 	    a.fullswitch(b);
 	}
 	 while(gr.getOccupiedLocations().size()<spots){
+     waittime(1);
      parentFrame.repaint();
 	    world.Gravity();
 	    world.refill();
       System.out.println(gr.getOccupiedLocations().size());
+	   }
+    }
+    public void waittime(double x)
+    {
       try
       {
-	     TimeUnit.SECONDS.sleep(1);
+	     TimeUnit.SECONDS.sleep((long) x);
       }
       catch(InterruptedException e)//ngl i have no idea what this does
       {
         System.out.println(e);
       }
-	}
-
-
     }
-
 
 
     /**
