@@ -450,8 +450,10 @@ public class Candy extends Actor
     }
     if(getPowerup()==2)
     {
+      Location loc = getLocation();
       dummy = createSameType();
       removeSelfFromGrid();
+      dummy.putSelfInGrid(gr,loc);
       dummy.wrappedsecond=true;
       dummy.wrappedEliminate();
     }
