@@ -359,7 +359,7 @@ public class Candy extends Actor
       score += 100;
     }
   }
-  public void destroy(Candy candy)
+  public void destroy(Candy candy,int type)//destroy for powerups
   {
     Grid<Actor> gr = getGrid();
       candy.removeSelfFromGrid();
@@ -420,14 +420,14 @@ public class Candy extends Actor
     {
       for (int x=0; x<gr.getNumCols();x++)
       {
-        destroy((Candy)gr.get(new Location(getLocation().getRow(),x)));
+        destroy((Candy)gr.get(new Location(getLocation().getRow(),x)),getType());
       }
     }
     else
     {
       for (int x=0; x<gr.getNumRows();x++)
       {
-        destroy((Candy)gr.get(new Location(x,getLocation().getCol())));
+        destroy((Candy)gr.get(new Location(x,getLocation().getCol())),getType());
       }
     }
   }
