@@ -373,8 +373,8 @@ public class GUIController<T>
 	    a.fullswitch(b);
 	}
 	 while(gr.getOccupiedLocations().size()<spots){
+   parentFrame.repaint();
      waittime(1);
-     parentFrame.repaint();
 	    world.Gravity();
 	    world.refill();
       System.out.println(gr.getOccupiedLocations().size());
