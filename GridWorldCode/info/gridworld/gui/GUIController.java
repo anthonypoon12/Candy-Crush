@@ -365,17 +365,18 @@ public class GUIController<T>
     }
     private void swap(Location l, Location l2){
     Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
+    int spots = gr.getOccupiedLocations().size();
     	if(gr.get(l)!= null && gr.get(l2)!=null){
 	    Candy a = (Candy) gr.get(l);
 	    Candy b = (Candy) gr.get(l2);
 	    a.fullswitch(b);
 	}
-	for(int i =0; i<gr.getNumRows(); i++){
+	while(gr.getOccupiedLocations()<spots){
 	    gr.Gravity();
 	    gr.refill();
 	    TimeUnit.SECONDS.sleep(1);
 	}
-	    
+
 
     }
 
