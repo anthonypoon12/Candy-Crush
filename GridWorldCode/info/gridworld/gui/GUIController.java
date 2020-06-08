@@ -371,7 +371,7 @@ public class GUIController<T>
 	    Candy b = (Candy) gr.get(l2);
 	    a.fullswitch(b);
 	}
-	while(gr.getOccupiedLocations()<spots){
+	while(gr.getOccupiedLocations().size()<spots){
 	    gr.Gravity();
 	    gr.refill();
 	    TimeUnit.SECONDS.sleep(1);
