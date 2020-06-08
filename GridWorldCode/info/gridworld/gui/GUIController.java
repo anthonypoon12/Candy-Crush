@@ -119,7 +119,18 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
-                step();
+              Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
+              CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+              int spots = gr.getNumCols()*gr.getNumRows();
+              if (gr.getOccupiedLocations().size()<spots)
+              {
+                parentFrame.repaint();
+                world.Gravity();
+                world.refill();
+                System.out.println(gr.getOccupiedLocations().size());
+              }
+              else
+                timer.stop();
             }
         });
 
@@ -364,6 +375,17 @@ public class GUIController<T>
         parentFrame.repaint();
     }
     private void swap(Location l, Location l2){
+    Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
+    CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+    int spots = gr.getNumCols()*gr.getNumRows();
+    	if(gr.get(l)!= null && gr.get(l2)!=null){
+	    Candy a = (Candy) gr.get(l);
+	    Candy b = (Candy) gr.get(l2);
+	    a.fullswitch(b);
+	}
+	 timer.start();
+    }
+    private void swap2(Location l, Location l2){
     Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
     CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
     int spots = gr.getNumCols()*gr.getNumRows();
