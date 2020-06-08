@@ -464,7 +464,7 @@ public class Candy extends Actor
       //dummy.wrappedEliminate();
     }
     else
-      removeSelfFromGrid();
+      destroy(this);
   }
   public void colorbombing(Candy candy)//part of destroying for color bombs. parameter is the candy bomb switches with.
   {
