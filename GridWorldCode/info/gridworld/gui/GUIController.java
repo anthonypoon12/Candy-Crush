@@ -122,7 +122,6 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
-              System.out.println(time);
               time+=timer.getDelay();
               parentFrame.repaint();
               Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
