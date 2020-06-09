@@ -88,7 +88,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 
   public void setScore(int score, int turns)
   {
-    setMessage("Score: " + score  + "\t Turns: " + turns);
+    setMessage("Score: " + score  + "\t Turns: " + turns + "     \b!Candy Crush!\b");
   }
 
   public void Gravity()
