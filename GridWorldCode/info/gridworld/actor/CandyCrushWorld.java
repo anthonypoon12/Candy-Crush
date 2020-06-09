@@ -34,6 +34,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
             if (getRandomEmptyLocation()==null)
               restart=false;
         }
+        Candy.score=0;
     }
   }
   public void gridDetect()
@@ -89,7 +90,7 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
   {
     setMessage("Score: " + score  + "\t Turns: " + turns);
   }
-	
+
   public void Gravity()
     { //invoking once will make all actors with an empty space below drop one space down
     Grid<Actor> g = getGrid();

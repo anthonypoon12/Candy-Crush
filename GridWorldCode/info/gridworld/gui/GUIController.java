@@ -128,7 +128,6 @@ public class GUIController<T>
                 parentFrame.repaint();
                 world.Gravity();
                 world.refill();
-                System.out.println(gr.getOccupiedLocations().size());
               }
               else
               {
@@ -406,7 +405,6 @@ public class GUIController<T>
      waittime(1);
 	    world.Gravity();
 	    world.refill();
-      System.out.println(gr.getOccupiedLocations().size());
 	   }
     }
     public void waittime(double x)
