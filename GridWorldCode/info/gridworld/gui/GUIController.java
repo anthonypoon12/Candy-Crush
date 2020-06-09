@@ -122,6 +122,7 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
+              System.out.println(time);
               time+=timer.getDelay();
               parentFrame.repaint();
               Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
@@ -172,14 +173,23 @@ public class GUIController<T>
      */
     public void step()
     {
-        parentFrame.getWorld().step();
-        parentFrame.repaint();
-        if (++numStepsSoFar == numStepsToRun)
-            stop();
-        Grid<T> gr = parentFrame.getWorld().getGrid();
+        CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+	fullClear();
+	world.fillWorld();
+	parentFrame.repaint();
+	time=0;
+ 
+    }
 
-        for (Location loc : gr.getOccupiedLocations())
-            addOccupant(gr.get(loc));
+    public void fullClear(){
+	Grid<Actor> g = (Grid<Actor>)parentFrame.getWorld().getGrid();
+	CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+	ArrayList<Actor> allCandies = new ArrayList<Actor>();
+	for(int i = g.getNumRows()-1; i >=0; i--){
+	    for(int j = 0; j < g.getNumCols(); j++){
+		g.remove(new Location(i,j));
+	    }
+	}
     }
 
     private void addOccupant(T occupant)
@@ -261,8 +271,11 @@ public class GUIController<T>
     {
         controlPanel = new JPanel();
         stepButton = new JButton(resources.getString("button.gui.step"));
+	stepButton.setText("Reset");
 	runButton = new JButton(resources.getString("button.gui.run"));
+	runButton.setText("Play");
         stopButton = new JButton(resources.getString("button.gui.stop"));
+	stopButton.setText("Pause");
 
         stuffButton = new JButton("stuff");	//NEW JButton
 
@@ -314,7 +327,8 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent e)
             {
-                step();
+		
+		step();
             }
         });
        runButton.addActionListener(new ActionListener()
