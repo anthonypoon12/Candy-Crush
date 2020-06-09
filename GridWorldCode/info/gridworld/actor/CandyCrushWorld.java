@@ -84,6 +84,12 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
     else
       return (new PurpleCandy());
   }
+
+  public void setScore(int score, int turns)
+  {
+    setMessage("Score: " + score  + "\t Turns: " + turns);
+  }
+	
   public void Gravity()
     { //invoking once will make all actors with an empty space below drop one space down
     Grid<Actor> g = getGrid();

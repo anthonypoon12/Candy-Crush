@@ -6,6 +6,9 @@ import info.gridworld.grid.*;
 public class Candy extends Actor
 //add "not contain in grid" parts
 {
+  public static int score;
+  public static int turns;
+  
   public Candy()
   {
     super();
@@ -63,6 +66,7 @@ public class Candy extends Actor
     if (isnextto)
     {
     switchCandy(candy1);
+    turns ++;
     ArrayList<Location> combolist;
     ArrayList<Location> combolist2;
     combolist = detect();
@@ -72,7 +76,10 @@ public class Candy extends Actor
     if (combolist2.size()>=3)
       destroy(combolist2);
     if ((combolist.size()<3)&&(combolist2.size()<3))
+    {
       switchCandy(candy1);
+      turns --;
+    }
     }
   }
   public void switchCandy(Candy candy)
@@ -295,8 +302,20 @@ public class Candy extends Actor
     for (Location l: list)
     {
       gr.remove(l);
+      score += 100;
     }
   }
+  
+    public static int getScore()
+  {
+    return score;
+  }
+
+  public static int getTurns()
+  {
+    return turns;
+  }
+  
   public ArrayList<Location> copyOfList(ArrayList<Location> x)
   {
     ArrayList<Location> output = new ArrayList<Location>();
