@@ -13,11 +13,11 @@ public class CandyCrushRunner
       int MAX_TURNS = 20;
       int score;
       int turns = 0;
-      while(turns < MAX_TURNS)
+      /*while(turns < MAX_TURNS)
       {
         score = Candy.getScore();
         world.setScore(score, turns);
         turns = Candy.getTurns();
-      }
+      }*/
   }
 }
