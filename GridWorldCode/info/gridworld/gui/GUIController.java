@@ -128,7 +128,7 @@ public class GUIController<T>
               CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
               if (time<(maxtime*1000))
               {
-                world.setScore(Candy.score,Candy.turns,time/1000);
+                world.setScore(Candy.score,Candy.turns,time/1000,maxtime);
               }
               int spots = gr.getNumCols()*gr.getNumRows();
               if (gr.getOccupiedLocations().size()<spots)
@@ -149,7 +149,7 @@ public class GUIController<T>
               if (time>=(maxtime*1000))
               {
                 world.gridDetect();
-                world.setScore(Candy.score, Candy.turns,maxtime);
+                world.setScore(Candy.score, Candy.turns,maxtime,maxtime);
                 if (world.getRandomEmptyLocation()==null)
                 {
                   stopButton.setEnabled(false);
@@ -187,7 +187,7 @@ public class GUIController<T>
 	        world.fillWorld();
 	         time=0;
            Candy.turns=0;
-           world.setScore(Candy.score,Candy.turns,time/1000);
+           world.setScore(Candy.score,Candy.turns,time/1000, maxtime);
 	          parentFrame.repaint();
             stopButton.setEnabled(false);
             stepButton.setEnabled(true);

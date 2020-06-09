@@ -86,9 +86,9 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
       return (new PurpleCandy());
   }
 
-  public void setScore(int score, int turns, int time)
+  public void setScore(int score, int turns, int time, int limit)
   {
-    setMessage("Score: " + score  + "\t Turns: " + turns + "     \b!Candy Crush!\b\nTime: "+ time);
+    setMessage("Score: " + score  + "\tTime Limit: "+limit+"     \b!Candy Crush!\b\nTurns "+ turns +"\t Time: " + time);
   }
   public void endScore()
   {
