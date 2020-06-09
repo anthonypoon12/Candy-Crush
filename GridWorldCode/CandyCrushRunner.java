@@ -9,6 +9,7 @@ public class CandyCrushRunner
   {
       CandyCrushWorld world = new CandyCrushWorld();
       world.fillWorld();
+      world.setMessage("                           \b!Candy Crush!\b");
       world.show();
       int MAX_TURNS = 20;
       int score;

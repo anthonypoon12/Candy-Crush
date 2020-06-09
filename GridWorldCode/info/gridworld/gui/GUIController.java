@@ -148,9 +148,12 @@ public class GUIController<T>
               }
               if (time>=(maxtime*1000))
               {
+                world.gridDetect();
                 world.setScore(Candy.score, Candy.turns,maxtime);
                 if (world.getRandomEmptyLocation()==null)
                 {
+                  stopButton.setEnabled(false);
+                  stepButton.setEnabled(true);
                   world.endScore();
                   timer.stop();
                 }
@@ -186,6 +189,9 @@ public class GUIController<T>
            Candy.turns=0;
            world.setScore(Candy.score,Candy.turns,time/1000);
 	          parentFrame.repaint();
+            stopButton.setEnabled(false);
+            stepButton.setEnabled(true);
+            runButton.setEnabled(true);
 
     }
 
