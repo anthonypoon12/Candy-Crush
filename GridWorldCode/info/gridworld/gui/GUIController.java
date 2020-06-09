@@ -122,7 +122,6 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
-              System.out.println(time);
               time+=timer.getDelay();
               parentFrame.repaint();
               Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
@@ -178,7 +177,7 @@ public class GUIController<T>
 	world.fillWorld();
 	parentFrame.repaint();
 	time=0;
- 
+
     }
 
     public void fullClear(){
@@ -327,7 +326,7 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent e)
             {
-		
+
 		step();
             }
         });
