@@ -73,6 +73,7 @@ public class GUIController<T>
 	private Location selLoc;
 	private int selectDos;       //sees if selLocDos has been given a location
 	private Location selLocDos; //holds second location for swapping
+  private boolean moving = false;
     /**
      * Creates a new controller tied to the specified display and gui
      * frame.
@@ -125,6 +126,7 @@ public class GUIController<T>
               int spots = gr.getNumCols()*gr.getNumRows();
               if (gr.getOccupiedLocations().size()<spots)
               {
+                moving=true;
                 parentFrame.repaint();
                 world.Gravity();
                 world.refill();
@@ -134,6 +136,7 @@ public class GUIController<T>
                 world.gridDetect();
                 if (world.getRandomEmptyLocation()==null)
                 {
+                  moving=false;
                   timer.stop();
                 }
               }
@@ -146,7 +149,7 @@ public class GUIController<T>
             {
                 Grid<T> gr = parentFrame.getWorld().getGrid();
                 Location loc = display.locationForPoint(evt.getPoint());
-                if (loc != null && gr.isValid(loc) && !isRunning())
+                if (loc != null && gr.isValid(loc) && !isRunning() && !moving)
                 {
                     display.setCurrentLocation(loc);
                     locationClicked();
