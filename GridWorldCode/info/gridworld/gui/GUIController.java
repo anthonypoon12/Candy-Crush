@@ -74,6 +74,8 @@ public class GUIController<T>
 	private int selectDos;       //sees if selLocDos has been given a location
 	private Location selLocDos; //holds second location for swapping
   private boolean moving = false;
+  public int time=0;
+  public int maxtime = 30;//end time in seconds
     /**
      * Creates a new controller tied to the specified display and gui
      * frame.
@@ -120,9 +122,12 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
+              System.out.println(time);
+              time+=timer.getDelay();
               parentFrame.repaint();
               Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
               CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+              world.setScore(Candy.score,Candy.turns,time/1000);
               int spots = gr.getNumCols()*gr.getNumRows();
               if (gr.getOccupiedLocations().size()<spots)
               {
@@ -137,8 +142,12 @@ public class GUIController<T>
                 if (world.getRandomEmptyLocation()==null)
                 {
                   moving=false;
-                  timer.stop();
                 }
+              }
+              if (time>=(maxtime*1000))
+              {
+              world.setScore(Candy.score, Candy.turns,maxtime);
+                timer.stop();
               }
             }
         });
@@ -149,7 +158,7 @@ public class GUIController<T>
             {
                 Grid<T> gr = parentFrame.getWorld().getGrid();
                 Location loc = display.locationForPoint(evt.getPoint());
-                if (loc != null && gr.isValid(loc) && !isRunning() && !moving)
+                if (loc != null && gr.isValid(loc) && isRunning() && !moving)
                 {
                     display.setCurrentLocation(loc);
                     locationClicked();
