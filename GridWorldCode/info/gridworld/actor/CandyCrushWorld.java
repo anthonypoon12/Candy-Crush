@@ -90,6 +90,10 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
   {
     setMessage("Score: " + score  + "\t Turns: " + turns + "     \b!Candy Crush!\b\nTime: "+ time);
   }
+  public void endScore()
+  {
+    setMessage(getMessage() + "              Game Over");
+  }
 
   public void Gravity()
     { //invoking once will make all actors with an empty space below drop one space down
