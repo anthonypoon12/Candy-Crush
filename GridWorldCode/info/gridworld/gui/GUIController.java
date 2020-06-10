@@ -156,6 +156,7 @@ public class GUIController<T>
                   stepButton.setEnabled(true);
                   stuffButton.setEnabled(true);
                   world.endScore();
+                  running=false;
                   timer.stop();
                 }
               }
