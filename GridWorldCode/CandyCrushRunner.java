@@ -9,15 +9,16 @@ public class CandyCrushRunner
   {
       CandyCrushWorld world = new CandyCrushWorld();
       world.fillWorld();
+      world.setMessage("                           \b!Candy Crush!\b");
       world.show();
       int MAX_TURNS = 20;
       int score;
       int turns = 0;
-      while(turns < MAX_TURNS)
+      /*while(turns < MAX_TURNS)
       {
         score = Candy.getScore();
         world.setScore(score, turns);
         turns = Candy.getTurns();
-      }
+      }*/
   }
 }
