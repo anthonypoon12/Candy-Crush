@@ -193,6 +193,7 @@ public class GUIController<T>
       stopButton.setEnabled(false);
       stepButton.setEnabled(true);
       runButton.setEnabled(true);
+      stuffButton.setEnabled(true);
 
     }
 
@@ -249,7 +250,7 @@ public class GUIController<T>
         stopButton.setEnabled(false);
         runButton.setEnabled(true);
         stepButton.setEnabled(true);
-        stuffButton.setEnabled(true);
+        stuffButton.setEnabled(false);
         running = false;
     }
 
@@ -265,7 +266,7 @@ public class GUIController<T>
 	//if(duration<10)
 	    // maxtime=30;
 	try{
-	    int duration= Integer.parseInt(JOptionPane.showInputDialog("enter an int: "));
+	    int duration= (int)Double.parseDouble(JOptionPane.showInputDialog("Enter number of seconds (minimum 10): "));
 	    if (duration>=10)
 		maxtime=duration;
 	} catch(Exception e){}
