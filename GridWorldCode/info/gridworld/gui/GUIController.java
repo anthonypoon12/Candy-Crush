@@ -123,12 +123,13 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
-	      
+
               time+=timer.getDelay();
               parentFrame.repaint();
               Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
               CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
-              world.setScore(Candy.score,Candy.turns,time/1000);
+              if (time<(maxtime*1000))
+                world.setScore(Candy.score,Candy.turns,time/1000,maxtime);
               int spots = gr.getNumCols()*gr.getNumRows();
               if (gr.getOccupiedLocations().size()<spots)
               {
@@ -147,8 +148,15 @@ public class GUIController<T>
               }
               if (time>=(maxtime*1000))
               {
-              world.setScore(Candy.score, Candy.turns,maxtime);
-                timer.stop();
+                world.gridDetect();
+                world.setScore(Candy.score, Candy.turns,maxtime);
+                if (world.getRandomEmptyLocation()==null)
+                {
+                  stopButton.setEnabled(false);
+                  stepButton.setEnabled(true);
+                  world.endScore();
+                  timer.stop();
+                }
               }
             }
         });
@@ -174,12 +182,17 @@ public class GUIController<T>
      */
     public void step()
     {
-        CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
-	fullClear();
-	world.fillWorld();
-	parentFrame.repaint();
-	time=0;
- 
+      CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+    	fullClear();
+    	world.fillWorld();
+      time=0;
+      Candy.turns=0;
+      world.setScore(Candy.score,Candy.turns,time/1000,maxtime);
+    	parentFrame.repaint();
+      stopButton.setEnabled(false);
+      stepButton.setEnabled(true);
+      runButton.setEnabled(true);
+
     }
 
     public void fullClear(){
@@ -255,7 +268,7 @@ public class GUIController<T>
 	} catch(Exception e){}
 	System.out.println(maxtime);
     }
-    
+
 
     public boolean isRunning()
     {
@@ -326,7 +339,7 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent e)
             {
-		
+
 		step();
             }
         });
