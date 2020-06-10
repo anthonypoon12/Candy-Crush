@@ -12,3 +12,4 @@ Press pause to stop and press play again to resume.
 Press reset button to reset game and grid. 
 Press change time limit button to change the duration of the game.
 Score and number of turns are shown in message bar.
+Fall speed can be adjusted using the slider. Speed can not be adjusted during game or when game is paused.
