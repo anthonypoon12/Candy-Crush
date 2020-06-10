@@ -41,6 +41,7 @@ import javax.swing.*;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
 
 /**
  * The GUIController controls the behavior in a WorldFrame. <br />
@@ -122,14 +123,12 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
+	      
               time+=timer.getDelay();
               parentFrame.repaint();
               Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
               CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
-              if (time<(maxtime*1000))
-              {
-                world.setScore(Candy.score,Candy.turns,time/1000,maxtime);
-              }
+              world.setScore(Candy.score,Candy.turns,time/1000);
               int spots = gr.getNumCols()*gr.getNumRows();
               if (gr.getOccupiedLocations().size()<spots)
               {
@@ -148,15 +147,8 @@ public class GUIController<T>
               }
               if (time>=(maxtime*1000))
               {
-                world.gridDetect();
-                world.setScore(Candy.score, Candy.turns,maxtime,maxtime);
-                if (world.getRandomEmptyLocation()==null)
-                {
-                  stopButton.setEnabled(false);
-                  stepButton.setEnabled(true);
-                  world.endScore();
-                  timer.stop();
-                }
+              world.setScore(Candy.score, Candy.turns,maxtime);
+                timer.stop();
               }
             }
         });
@@ -183,16 +175,11 @@ public class GUIController<T>
     public void step()
     {
         CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
-	       fullClear();
-	        world.fillWorld();
-	         time=0;
-           Candy.turns=0;
-           world.setScore(Candy.score,Candy.turns,time/1000, maxtime);
-	          parentFrame.repaint();
-            stopButton.setEnabled(false);
-            stepButton.setEnabled(true);
-            runButton.setEnabled(true);
-
+	fullClear();
+	world.fillWorld();
+	parentFrame.repaint();
+	time=0;
+ 
     }
 
     public void fullClear(){
@@ -257,20 +244,18 @@ public class GUIController<T>
      */
     public void stuff()
     {
-	parentFrame.getWorld().stuff();		//calls new method in ActorWorld
-        parentFrame.repaint();
-
-        Grid<T> gr = parentFrame.getWorld().getGrid();
-
-        for (Location loc : gr.getOccupiedLocations())
-            addOccupant(gr.get(loc));
-
+	//JOptionPane.showMessageDialog(parentFrame, "Enter an Int");
+        //int duration= Integer.parseInt(JOptionPane.showInputDialog("enter an int: "));
+	//if(duration<10)
+	    // maxtime=30;
+	try{
+	    int duration= Integer.parseInt(JOptionPane.showInputDialog("enter an int: "));
+	    if (duration>=10)
+		maxtime=duration;
+	} catch(Exception e){}
+	System.out.println(maxtime);
     }
-
-
-
-
-
+    
 
     public boolean isRunning()
     {
@@ -291,7 +276,7 @@ public class GUIController<T>
         stopButton = new JButton(resources.getString("button.gui.stop"));
 	stopButton.setText("Pause");
 
-        stuffButton = new JButton("stuff");	//NEW JButton
+        stuffButton = new JButton("Change Time Limit");	//NEW JButton
 
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
         controlPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -305,7 +290,7 @@ public class GUIController<T>
         controlPanel.add(runButton);
         controlPanel.add(Box.createRigidArea(spacer));
         controlPanel.add(stopButton);
-
+	controlPanel.add(Box.createRigidArea(spacer));
 	controlPanel.add(stuffButton);			//Adds a NEW Button
 
         runButton.setEnabled(false);
@@ -341,9 +326,8 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent e)
             {
-
+		
 		step();
-    parentFrame.repaint();
             }
         });
        runButton.addActionListener(new ActionListener()
