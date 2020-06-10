@@ -149,11 +149,12 @@ public class GUIController<T>
               if (time>=(maxtime*1000))
               {
                 world.gridDetect();
-                world.setScore(Candy.score, Candy.turns,maxtime);
+                world.setScore(Candy.score, Candy.turns,maxtime,maxtime);
                 if (world.getRandomEmptyLocation()==null)
                 {
                   stopButton.setEnabled(false);
                   stepButton.setEnabled(true);
+                  stuffButton.setEnabled(true);
                   world.endScore();
                   timer.stop();
                 }
@@ -231,6 +232,7 @@ public class GUIController<T>
         stopButton.setEnabled(true);
         stepButton.setEnabled(false);
         runButton.setEnabled(false);
+        stuffButton.setEnabled(false);
         numStepsSoFar = 0;
         timer.start();
         running = true;
@@ -247,6 +249,7 @@ public class GUIController<T>
         stopButton.setEnabled(false);
         runButton.setEnabled(true);
         stepButton.setEnabled(true);
+        stuffButton.setEnabled(true);
         running = false;
     }
 
