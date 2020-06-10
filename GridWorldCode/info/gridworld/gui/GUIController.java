@@ -78,6 +78,7 @@ public class GUIController<T>
   private boolean moving = false;
   public int time=0;
   public int maxtime = 30;//end time in seconds
+  public boolean started=false;
     /**
      * Creates a new controller tied to the specified display and gui
      * frame.
@@ -124,7 +125,7 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
-
+              started=true;
               time+=timer.getDelay();
               parentFrame.repaint();
               Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
@@ -256,7 +257,8 @@ public class GUIController<T>
         runButton.setEnabled(true);
         stepButton.setEnabled(true);
         stuffButton.setEnabled(false);
-        speedSlider.setEnabled(false);
+        if (started)
+          speedSlider.setEnabled(false);
         running = false;
     }
 
