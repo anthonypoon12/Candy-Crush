@@ -69,6 +69,7 @@ public class GUIController<T>
     private DisplayMap displayMap;
     private boolean running;
     private Set<Class> occupantClasses;
+    private JSlider speedSlider;
 
 	private int select;   		//new variables to lock onto an Actor
 	private Location selLoc;
@@ -155,6 +156,7 @@ public class GUIController<T>
                   stopButton.setEnabled(false);
                   stepButton.setEnabled(true);
                   stuffButton.setEnabled(true);
+                  speedSlider.setEnabled(true);
                   world.endScore();
                   running=false;
                   timer.stop();
@@ -195,6 +197,7 @@ public class GUIController<T>
       stepButton.setEnabled(true);
       runButton.setEnabled(true);
       stuffButton.setEnabled(true);
+      speedSlider.setEnabled(true);
 
     }
 
@@ -235,6 +238,7 @@ public class GUIController<T>
         stepButton.setEnabled(false);
         runButton.setEnabled(false);
         stuffButton.setEnabled(false);
+        speedSlider.setEnabled(false);
         numStepsSoFar = 0;
         timer.start();
         running = true;
@@ -252,6 +256,7 @@ public class GUIController<T>
         runButton.setEnabled(true);
         stepButton.setEnabled(true);
         stuffButton.setEnabled(false);
+        speedSlider.setEnabled(false);
         running = false;
     }
 
@@ -319,7 +324,7 @@ public class GUIController<T>
 
         controlPanel.add(Box.createRigidArea(spacer));
         controlPanel.add(new JLabel(resources.getString("slider.gui.slow")));
-        JSlider speedSlider = new JSlider(MIN_DELAY_MSECS, MAX_DELAY_MSECS,
+        speedSlider = new JSlider(MIN_DELAY_MSECS, MAX_DELAY_MSECS,
                 INITIAL_DELAY);
         speedSlider.setInverted(true);
         speedSlider.setPreferredSize(new Dimension(100, speedSlider
