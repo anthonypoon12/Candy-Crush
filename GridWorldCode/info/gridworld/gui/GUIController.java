@@ -39,6 +39,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.*;
 
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.JOptionPane;
+
 /**
  * The GUIController controls the behavior in a WorldFrame. <br />
  * This code is not tested on the AP CS A and AB exams. It contains GUI
@@ -70,7 +74,9 @@ public class GUIController<T>
 	private Location selLoc;
 	private int selectDos;       //sees if selLocDos has been given a location
 	private Location selLocDos; //holds second location for swapping
-
+  private boolean moving = false;
+  public int time=0;
+  public int maxtime = 30;//end time in seconds
     /**
      * Creates a new controller tied to the specified display and gui
      * frame.
@@ -117,7 +123,42 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent evt)
             {
-                step();
+
+              time+=timer.getDelay();
+              parentFrame.repaint();
+              Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
+              CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+              if (time<(maxtime*1000))
+                world.setScore(Candy.score,Candy.turns,time/1000,maxtime);
+              int spots = gr.getNumCols()*gr.getNumRows();
+              if (gr.getOccupiedLocations().size()<spots)
+              {
+                moving=true;
+                parentFrame.repaint();
+                world.Gravity();
+                world.refill();
+              }
+              else
+              {
+                world.gridDetect();
+                if (world.getRandomEmptyLocation()==null)
+                {
+                  moving=false;
+                }
+              }
+              if (time>=(maxtime*1000))
+              {
+                world.gridDetect();
+                world.setScore(Candy.score, Candy.turns,maxtime,maxtime);
+                if (world.getRandomEmptyLocation()==null)
+                {
+                  stopButton.setEnabled(false);
+                  stepButton.setEnabled(true);
+                  stuffButton.setEnabled(true);
+                  world.endScore();
+                  timer.stop();
+                }
+              }
             }
         });
 
@@ -127,7 +168,7 @@ public class GUIController<T>
             {
                 Grid<T> gr = parentFrame.getWorld().getGrid();
                 Location loc = display.locationForPoint(evt.getPoint());
-                if (loc != null && gr.isValid(loc) && !isRunning())
+                if (loc != null && gr.isValid(loc) && isRunning() && !moving)
                 {
                     display.setCurrentLocation(loc);
                     locationClicked();
@@ -142,14 +183,28 @@ public class GUIController<T>
      */
     public void step()
     {
-        parentFrame.getWorld().step();
-        parentFrame.repaint();
-        if (++numStepsSoFar == numStepsToRun)
-            stop();
-        Grid<T> gr = parentFrame.getWorld().getGrid();
+      CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+    	fullClear();
+    	world.fillWorld();
+      time=0;
+      Candy.turns=0;
+      world.setScore(Candy.score,Candy.turns,time/1000,maxtime);
+    	parentFrame.repaint();
+      stopButton.setEnabled(false);
+      stepButton.setEnabled(true);
+      runButton.setEnabled(true);
 
-        for (Location loc : gr.getOccupiedLocations())
-            addOccupant(gr.get(loc));
+    }
+
+    public void fullClear(){
+	Grid<Actor> g = (Grid<Actor>)parentFrame.getWorld().getGrid();
+	CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+	ArrayList<Actor> allCandies = new ArrayList<Actor>();
+	for(int i = g.getNumRows()-1; i >=0; i--){
+	    for(int j = 0; j < g.getNumCols(); j++){
+		g.remove(new Location(i,j));
+	    }
+	}
     }
 
     private void addOccupant(T occupant)
@@ -177,6 +232,7 @@ public class GUIController<T>
         stopButton.setEnabled(true);
         stepButton.setEnabled(false);
         runButton.setEnabled(false);
+        stuffButton.setEnabled(false);
         numStepsSoFar = 0;
         timer.start();
         running = true;
@@ -193,6 +249,7 @@ public class GUIController<T>
         stopButton.setEnabled(false);
         runButton.setEnabled(true);
         stepButton.setEnabled(true);
+        stuffButton.setEnabled(true);
         running = false;
     }
 
@@ -203,19 +260,17 @@ public class GUIController<T>
      */
     public void stuff()
     {
-	parentFrame.getWorld().stuff();		//calls new method in ActorWorld
-        parentFrame.repaint();
-
-        Grid<T> gr = parentFrame.getWorld().getGrid();
-
-        for (Location loc : gr.getOccupiedLocations())
-            addOccupant(gr.get(loc));
-
+	//JOptionPane.showMessageDialog(parentFrame, "Enter an Int");
+        //int duration= Integer.parseInt(JOptionPane.showInputDialog("enter an int: "));
+	//if(duration<10)
+	    // maxtime=30;
+	try{
+	    int duration= Integer.parseInt(JOptionPane.showInputDialog("enter an int: "));
+	    if (duration>=10)
+		maxtime=duration;
+	} catch(Exception e){}
+	System.out.println(maxtime);
     }
-
-
-
-
 
 
     public boolean isRunning()
@@ -231,10 +286,13 @@ public class GUIController<T>
     {
         controlPanel = new JPanel();
         stepButton = new JButton(resources.getString("button.gui.step"));
+	stepButton.setText("Reset");
 	runButton = new JButton(resources.getString("button.gui.run"));
+	runButton.setText("Play");
         stopButton = new JButton(resources.getString("button.gui.stop"));
+	stopButton.setText("Pause");
 
-        stuffButton = new JButton("stuff");	//NEW JButton
+        stuffButton = new JButton("Change Time Limit");	//NEW JButton
 
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
         controlPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -248,7 +306,7 @@ public class GUIController<T>
         controlPanel.add(runButton);
         controlPanel.add(Box.createRigidArea(spacer));
         controlPanel.add(stopButton);
-
+	controlPanel.add(Box.createRigidArea(spacer));
 	controlPanel.add(stuffButton);			//Adds a NEW Button
 
         runButton.setEnabled(false);
@@ -284,7 +342,8 @@ public class GUIController<T>
         {
             public void actionPerformed(ActionEvent e)
             {
-                step();
+
+		step();
             }
         });
        runButton.addActionListener(new ActionListener()
@@ -362,13 +421,43 @@ public class GUIController<T>
         parentFrame.repaint();
     }
     private void swap(Location l, Location l2){
-    	Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
-	     Candy a = (Candy) gr.get(l);
-	Candy b = (Candy) gr.get(l2);
-	a.fullswitch(b);
-
+    Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
+    CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+    int spots = gr.getNumCols()*gr.getNumRows();
+    	if(gr.get(l)!= null && gr.get(l2)!=null){
+	    Candy a = (Candy) gr.get(l);
+	    Candy b = (Candy) gr.get(l2);
+	    a.fullswitch(b);
+	}
+	 timer.start();
     }
-
+    private void swap2(Location l, Location l2){
+    Grid<Actor> gr = (Grid<Actor>)parentFrame.getWorld().getGrid();
+    CandyCrushWorld world =(CandyCrushWorld) parentFrame.getWorld();
+    int spots = gr.getNumCols()*gr.getNumRows();
+    	if(gr.get(l)!= null && gr.get(l2)!=null){
+	    Candy a = (Candy) gr.get(l);
+	    Candy b = (Candy) gr.get(l2);
+	    a.fullswitch(b);
+	}
+	 while(gr.getOccupiedLocations().size()<spots){
+   parentFrame.repaint();
+     waittime(1);
+	    world.Gravity();
+	    world.refill();
+	   }
+    }
+    public void waittime(double x)
+    {
+      try
+      {
+	     TimeUnit.SECONDS.sleep((long) x);
+      }
+      catch(InterruptedException e)//ngl i have no idea what this does
+      {
+        System.out.println(e);
+      }
+    }
 
 
     /**

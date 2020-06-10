@@ -7,32 +7,68 @@ import info.gridworld.world.*;
 import info.gridworld.gui.*;
 public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
 {
-  public CandyCrushWorld()//We need to decide dimensions of the grid
-  {
-    //super(new BoundedGrid(9,9));
-  }
   public void fillWorld()//needs to detect for combos
   {
+    boolean restart=true;
     Grid<Actor> gr = getGrid();
     int rows = gr.getNumRows();
     int cols = gr.getNumCols();
     if (rows > 0 && cols > 0) // bounded grid
     {
-      // get all valid empty locations (Copied from World.java in the getRandomEmptyLocation())
-      ArrayList<Location> emptyLocs = new ArrayList<Location>();
-      for (int i = 0; i < rows; i++)
-          for (int j = 0; j < cols; j++)
-          {
-              Location loc = new Location(i, j);
-              if (gr.isValid(loc) && gr.get(loc) == null)
-                  emptyLocs.add(loc);
-          }
-        for (Location emptyloc: emptyLocs)
+        while (restart)
         {
-          add(emptyloc, randomCandy());
+          // get all valid empty locations (Copied from World.java in the getRandomEmptyLocation())
+          ArrayList<Location> emptyLocs = new ArrayList<Location>();
+          for (int i = 0; i < rows; i++)
+              for (int j = 0; j < cols; j++)
+              {
+                  Location loc = new Location(i, j);
+                  if (gr.isValid(loc) && gr.get(loc) == null)
+                      emptyLocs.add(loc);
+              }
+            for (Location emptyloc: emptyLocs)
+            {
+              add(emptyloc, randomCandy());
+            }
+            gridDetect();
+            if (getRandomEmptyLocation()==null)
+              restart=false;
         }
+        Candy.score=0;
     }
   }
+  public void gridDetect()
+  {
+    boolean stop=false;
+    Grid<Actor> gr = getGrid();
+    int rows = gr.getNumRows();
+    int cols = gr.getNumCols();
+    for (int i = 0; (i < rows)&&(!stop); i++)
+      for (int j = 2-(i%3); (j < cols)&&(!stop); j+=3)
+      {
+        Location loc = new Location(i, j);
+        if (gr.isValid(loc))
+        {
+          if (gr.get(loc) instanceof Candy)
+          {
+            Candy candy = (Candy)gr.get(loc);
+            gridDetect2(candy);
+            if (getRandomEmptyLocation()!=null)
+              stop=true;
+          }
+        }
+      }
+  }
+  public void gridDetect2(Candy candy)
+  {
+    ArrayList<Location> combolist;
+    combolist = candy.detect();
+    if (combolist.size()>=3)
+    {
+      candy.destroy(combolist);
+    }
+  }
+
   public Candy randomCandy()//returns a random candy
   {
     int x =(int)(Math.random()*6);
@@ -50,17 +86,21 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
       return (new PurpleCandy());
   }
 
-  public void setScore(int score, int turns)
+  public void setScore(int score, int turns, int time, int limit)
   {
-    setMessage("Score: " + score  + "\t Turns: " + turns);
+    setMessage("Score: " + score  + "\tTime Limit: "+limit+"     \b!Candy Crush!\b\nTurns "+ turns +"\t Time: " + time);
   }
-	
+  public void endScore()
+ {
+   setMessage(getMessage() + "              Game Over");
+ }
+
   public void Gravity()
     { //invoking once will make all actors with an empty space below drop one space down
     Grid<Actor> g = getGrid();
     Actor obj;
     ArrayList<Actor> sorted = new ArrayList<Actor>();
-    for(int i = g.getNumRows()-1; i >0; i--){
+    for(int i = g.getNumRows()-1; i >=0; i--){
       for(int j = 0; j < g.getNumCols(); j++){
         obj = g.get(new Location(i, j));
         if(obj != null)
@@ -75,4 +115,14 @@ public class CandyCrushWorld extends ActorWorld //ActorWorld edited by Chew
         a.moveTo(next);
     }
   }
+    public void refill(){  //only refills the top row
+      Grid<Actor> g = getGrid();
+      for(int j = 0; j < g.getNumCols(); j++){
+	  Location filling= new Location(0, j);
+	  Candy creating= randomCandy();
+	  if(g.isValid(filling) && g.get(filling)==null)
+	      creating.putSelfInGrid(g,filling);
+      }
+    }
+
 }
