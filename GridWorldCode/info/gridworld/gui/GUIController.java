@@ -161,6 +161,7 @@ public class GUIController<T>
                   world.endScore();
                   running=false;
                   timer.stop();
+                  JOptionPane.showMessageDialog(parentFrame, "Game Over!");
                 }
               }
             }
