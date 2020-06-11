@@ -259,6 +259,10 @@ public class GUIController<T>
         stuffButton.setEnabled(false);
         if (started)
           speedSlider.setEnabled(false);
+        else
+        {
+          JOptionPane.showMessageDialog(parentFrame, "Welcome to Candy Crush!");
+        }
         running = false;
     }
 
