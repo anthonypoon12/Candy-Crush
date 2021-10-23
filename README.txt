@@ -1,4 +1,5 @@
 # Candy-Crush by Anthony Poon, William Li, and Zoe Oppenheimer
+#AP Computer Science A Project from 2020
 If using Windows, run the "run.bat" file
 If using Mac, run the "run.sh" file
 This game is based on the popular Candy Crush game. Press play to start the timer.
